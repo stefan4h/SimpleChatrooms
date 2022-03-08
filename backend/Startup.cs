@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +25,7 @@ namespace simple_chatrooms_backend {
         }
 
         public IConfiguration Configuration { get; }
+        public object JwtBearerDefault { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
@@ -36,6 +38,18 @@ namespace simple_chatrooms_backend {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<ITokenService, TokenService>();
+
+
+            // source for authentication: https://medium.com/c-sharp-progarmming/jwt-authentication-in-asp-net-core-web-api-82895c29734c
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
 
             // connect to MySQL Database Server
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
@@ -55,9 +69,9 @@ namespace simple_chatrooms_backend {
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();

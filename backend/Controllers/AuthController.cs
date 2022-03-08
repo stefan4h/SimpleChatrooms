@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using simple_chatrooms_backend.Entities;
@@ -72,5 +73,6 @@ namespace simple_chatrooms_backend.Controllers {
         private async Task<bool> UserExists(string username) {
             return await _context.Users.AnyAsync(x => x.Username == username.ToLower());
         }
+
     }
 }
