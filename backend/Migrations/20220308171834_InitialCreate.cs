@@ -17,6 +17,8 @@ namespace simple_chatrooms_backend.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Username = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    PasswordHash = table.Column<byte[]>(type: "longblob", nullable: false),
+                    PasswordSalt = table.Column<byte[]>(type: "longblob", nullable: false),
                     FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
@@ -27,11 +29,6 @@ namespace simple_chatrooms_backend.Migrations
                     table.PrimaryKey("PK_Users", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "FirstName", "LastName", "Username" },
-                values: new object[] { new Guid("21fdbd14-af66-4970-a6c3-76596bc1b5f3"), "John", "Cena", "the_cena" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

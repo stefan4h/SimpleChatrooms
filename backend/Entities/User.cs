@@ -15,13 +15,18 @@ namespace simple_chatrooms_backend.Entities {
         public string Username { get; set; }
 
         [Required]
+        public byte[] PasswordHash { get; set; }
+
+        [Required]
+        public byte[] PasswordSalt { get; set; }
+
+        [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }
 
         [Required]
         [MaxLength(50)]
         public string LastName { get; set; }
-
 
     }
 }

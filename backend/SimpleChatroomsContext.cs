@@ -15,13 +15,6 @@ namespace simple_chatrooms_backend {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
 
-            modelBuilder.Entity<User>().HasData(new User {
-                Id = Guid.NewGuid(),
-                Username = "the_cena",
-                FirstName = "John",
-                LastName = "Cena"
-            });
-
             base.OnModelCreating(modelBuilder);
         }
 

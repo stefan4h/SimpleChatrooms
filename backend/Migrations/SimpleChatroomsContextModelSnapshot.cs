@@ -33,6 +33,14 @@ namespace simple_chatrooms_backend.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("longblob");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("longblob");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -41,15 +49,6 @@ namespace simple_chatrooms_backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("21fdbd14-af66-4970-a6c3-76596bc1b5f3"),
-                            FirstName = "John",
-                            LastName = "Cena",
-                            Username = "the_cena"
-                        });
                 });
 #pragma warning restore 612, 618
         }
