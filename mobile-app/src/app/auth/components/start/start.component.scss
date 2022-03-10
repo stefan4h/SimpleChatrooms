@@ -1,0 +1,20 @@
+main{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width:100%;
+}
+
+h1{
+  font-size: xx-large;
+  font-weight: bolder;
+  color: var(--ion-color-secondary);
+}
+
+p{
+  margin: 20px 50px;
+  text-align: center;
+  color: var(--ion-color-medium);
+}
