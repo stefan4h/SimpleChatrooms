@@ -1,3 +1,46 @@
-<p>
-  register works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title size="large">Register</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="auth"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="registerForm">
+
+    <div style="flex: 1 auto"></div>
+
+    <ion-item>
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input formControlName="firstname" autocomplete="given-name" clearInput></ion-input>
+      <span slot="error" [class.hidden]="!(firstname.hasError('required') && firstname.dirty || firstname.touched)">First Name is required</span>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input formControlName="lastname" autocomplete="family-name" clearInput></ion-input>
+      <span slot="error" [class.hidden]="!(lastname.hasError('required') && lastname.dirty || lastname.touched)">Last Name is required</span>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input formControlName="username" autocomplete="username" clearInput></ion-input>
+      <span slot="error" [class.hidden]="!(lastname.hasError('required') && username.dirty || username.touched)">A Username is required</span>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password" clearInput></ion-input>
+      <span slot="error" [class.hidden]="!(password.hasError('min-length') && password.dirty || password.touched)">The password must be at least 6 characters</span>
+      <span slot="error" [class.hidden]="!(password.hasError('required') && password.dirty || password.touched)">A password is required</span>
+    </ion-item>
+
+    <div style="flex: 1 auto"></div>
+
+    <ion-button color="primary" expand="block" [disabled]="registerForm.invalid">Register</ion-button>
+
+  </form>
+</ion-content>

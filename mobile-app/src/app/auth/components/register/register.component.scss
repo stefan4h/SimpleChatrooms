@@ -1,0 +1,17 @@
+form {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  ion-item {
+    width: 100%;
+  }
+
+  ion-button {
+    width: 90%;
+    margin-top: 15px;
+    height: 45px;
+  }
+}

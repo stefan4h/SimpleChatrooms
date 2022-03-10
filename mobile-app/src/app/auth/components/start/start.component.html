@@ -1,10 +1,24 @@
+<ion-content>
+
 <main>
+
+  <div style="flex: 1 auto"></div>
+
+  <img src="assets/logo.png" alt="logo">
 
   <h1>SimpleChatrooms</h1>
 
   <p>
-    Join existing Chatrooms or simply create your own! Login now and chat with people all
-    over the world, no phone number required.
+    <span>Join existing Chatrooms or simply create your own!</span>
+    Login now and chat with people all over the world, no phone number required.
   </p>
 
+  <div style="flex: 1 auto"></div>
+
+  <a [routerLink]="['/auth','register']">No account yet?</a>
+
+  <ion-button color="primary" expand="block" [routerLink]="['/auth','login']">Login</ion-button>
+
 </main>
+
+</ion-content>
