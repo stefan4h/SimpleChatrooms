@@ -26,6 +26,7 @@ namespace simple_chatrooms_backend {
 
         public IConfiguration Configuration { get; }
         public object JwtBearerDefault { get; private set; }
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
@@ -33,6 +34,15 @@ namespace simple_chatrooms_backend {
             services.AddControllers();
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "simple_chatrooms_backend", Version = "v1" });
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder => {
+                                      builder.WithOrigins("http://127.0.0.1:4200");
+                                      builder.AllowAnyHeader();
+                                  });
             });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -65,9 +75,9 @@ namespace simple_chatrooms_backend {
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "simple_chatrooms_backend v1"));
             }
 
-            //app.UseHttpsRedirection();
-
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthentication();
 
