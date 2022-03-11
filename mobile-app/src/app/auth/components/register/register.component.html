@@ -15,28 +15,44 @@
     <ion-item>
       <ion-label position="floating">First Name</ion-label>
       <ion-input formControlName="firstname" autocomplete="given-name" clearInput></ion-input>
-      <span slot="error" [class.hidden]="!(firstname.hasError('required') && firstname.dirty || firstname.touched)">First Name is required</span>
     </ion-item>
+    <div class="error-wrapper">
+        <span class="error" *ngIf="firstname.hasError('required') && (firstname.dirty || firstname.touched)">
+        First Name is required
+      </span>
+    </div>
 
 
     <ion-item>
       <ion-label position="floating">Last Name</ion-label>
       <ion-input formControlName="lastname" autocomplete="family-name" clearInput></ion-input>
-      <span slot="error" [class.hidden]="!(lastname.hasError('required') && lastname.dirty || lastname.touched)">Last Name is required</span>
     </ion-item>
+    <div class="error-wrapper">
+      <span class="error" *ngIf="lastname.hasError('required') && (lastname.dirty || lastname.touched)">
+        Last Name is required
+      </span>
+    </div>
 
     <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input formControlName="username" autocomplete="username" clearInput></ion-input>
-      <span slot="error" [class.hidden]="!(lastname.hasError('required') && username.dirty || username.touched)">A Username is required</span>
     </ion-item>
+    <div class="error-wrapper">
+      <span class="error" *ngIf="username.hasError('required') && (username.dirty || username.touched)">
+        A Username is required
+      </span>
+    </div>
 
     <ion-item>
       <ion-label position="floating">Password</ion-label>
       <ion-input type="password" formControlName="password" clearInput></ion-input>
-      <span slot="error" [class.hidden]="!(password.hasError('min-length') && password.dirty || password.touched)">The password must be at least 6 characters</span>
-      <span slot="error" [class.hidden]="!(password.hasError('required') && password.dirty || password.touched)">A password is required</span>
     </ion-item>
+    <div class="error-wrapper">
+      <span class="error" *ngIf="password.hasError('minlength') && (password.dirty || password.touched)">
+        The password must be at least 6 characters
+      </span>
+      <span class="error" *ngIf="password.hasError('required') && (password.dirty || password.touched)">A password is required</span>
+    </div>
 
     <div style="flex: 1 auto"></div>
 
