@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
       this.lastname.value,
       this.username.value,
       this.password.value
-    ).subscribe((user: User) => this.router.navigate(['/home']))
+    ).subscribe();
   }
 
   get firstname(): AbstractControl {

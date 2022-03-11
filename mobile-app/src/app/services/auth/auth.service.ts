@@ -15,7 +15,7 @@ export class AuthService {
   private _user: BehaviorSubject<User>;
 
   public get user$(): Observable<User> {
-    return this._user.asObservable();
+    return this._user?.asObservable();
   }
 
   public get token(): string {
@@ -25,7 +25,11 @@ export class AuthService {
   constructor(private http: HttpClient,
               private router: Router,
               private storageService: StorageService) {
-    this._user = new BehaviorSubject<User>(storageService.get('user'));
+    this.storageService.get('user').then((user:User)=>{
+      if(user)
+        this._user = new BehaviorSubject<User>(user);
+      this._user = new BehaviorSubject<User>(null);
+    });
   }
 
   public register(firstname: string, lastname: string, username: string, password: string): Observable<User> {
@@ -34,7 +38,7 @@ export class AuthService {
       .pipe(
         tap((user: User) => {
           this._user.next(user);
-          this.storageService.set('user', user); // save to storage to be still logged in later
+          this.storageService.set('user', user).then(() => this.router.navigate(['']));
         })
       );
   }
@@ -44,7 +48,7 @@ export class AuthService {
       .pipe(
         tap((user: User) => {
           this._user.next(user);
-          this.storageService.set('user', user); // save to storage to be still logged in later
+          this.storageService.set('user', user).then(() => this.router.navigate(['']))
         })
       );
   }
