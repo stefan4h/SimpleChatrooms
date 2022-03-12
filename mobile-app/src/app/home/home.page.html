@@ -3,7 +3,7 @@
 
     <ion-title>
       <div class="title-wrapper">
-        <div class="profile-picture" *ngIf="user$ | async as user">
+        <div class="profile-picture" *ngIf="user$ | async as user" routerLink="/settings">
           <span>{{user.firstName[0].toUpperCase()}}{{user.lastName[0].toUpperCase()}}</span>
         </div>
         <div class="title">SimpleChatrooms</div>

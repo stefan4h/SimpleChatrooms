@@ -1,0 +1,22 @@
+.wrapper{
+  width: 1000px;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+
+  .profile-picture {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    font-size: 60pt;
+    background: lightgreen;
+    border: 1.5px solid black;
+    border-radius: 50%;
+    margin-right: 50px;
+    cursor: pointer;
+  }
+
+}
