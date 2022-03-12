@@ -4,6 +4,7 @@ import {AuthService} from "../../../services/auth/auth.service";
 import {User} from "../../../models/user.model";
 import {Router} from "@angular/router";
 import {finalize} from "rxjs/operators";
+import {ToastService} from "../../../services/toast.service";
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
+              private toastService: ToastService,
               private router: Router) {
   }
 
@@ -38,7 +40,10 @@ export class RegisterComponent implements OnInit {
       this.username.value,
       this.password.value
     ).pipe(finalize(() => this.loading = false))
-      .subscribe();
+      .subscribe(
+        () => this.toastService.success('Account successfully created'),
+        error => this.toastService.error('An error occurred while creating the account')
+      );
   }
 
   get firstname(): AbstractControl {
