@@ -15,7 +15,11 @@ export class AuthService {
   private _user: BehaviorSubject<User>;
 
   public get user$(): Observable<User> {
-    return this._user?.asObservable();
+    return this._user.asObservable();
+  }
+
+  public get user(): User {
+    return this._user.value;
   }
 
   public get token(): string {
@@ -25,10 +29,12 @@ export class AuthService {
   constructor(private http: HttpClient,
               private router: Router,
               private storageService: StorageService) {
-    this.storageService.get('user').then((user:User)=>{
-      if(user)
-        this._user = new BehaviorSubject<User>(user);
-      this._user = new BehaviorSubject<User>(null);
+    this._user = new BehaviorSubject<User>(null);
+    this.storageService.get('user').then((user: User) => {
+      if (user)
+        this._user.next(user);
+      else
+        this._user.next(null);
     });
   }
 
