@@ -10,21 +10,23 @@ import {AuthPage} from './auth.page';
 import {StartComponent} from './components/start/start.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
-import {IonicStorageModule} from "@ionic/storage-angular";
+import {AppModule} from "../app.module";
+import {BtnLoadingDirective} from "../shared/directives/btn-loading.directive";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    AuthPageRoutingModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        AuthPageRoutingModule,
+        ReactiveFormsModule,
+    ],
   declarations: [
     AuthPage,
     StartComponent,
     LoginComponent,
     RegisterComponent,
+    BtnLoadingDirective
   ]
 })
 export class AuthPageModule {

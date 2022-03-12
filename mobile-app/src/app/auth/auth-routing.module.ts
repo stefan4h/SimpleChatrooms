@@ -5,6 +5,7 @@ import {AuthPage} from './auth.page';
 import {StartComponent} from './components/start/start.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
+import {BtnLoadingDirective} from "../shared/directives/btn-loading.directive";
 
 const routes: Routes = [
   {

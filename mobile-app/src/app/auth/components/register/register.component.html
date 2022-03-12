@@ -56,7 +56,9 @@
 
     <div style="flex: 1 auto"></div>
 
-    <ion-button color="primary" expand="block" [disabled]="registerForm.invalid" (click)="register()">Register</ion-button>
+    <ion-button [appBtnLoading]="loading" color="primary" expand="block" [disabled]="registerForm.invalid" (click)="register()">
+      Register
+    </ion-button>
 
   </form>
 </ion-content>

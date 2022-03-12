@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/form
 import {AuthService} from "../../../services/auth/auth.service";
 import {User} from "../../../models/user.model";
 import {Router} from "@angular/router";
+import {finalize} from "rxjs/operators";
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,7 @@ import {Router} from "@angular/router";
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
+  loading: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -28,12 +30,15 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    this.loading = true;
+
     this.authService.register(
       this.firstname.value,
       this.lastname.value,
       this.username.value,
       this.password.value
-    ).subscribe();
+    ).pipe(finalize(() => this.loading = false))
+      .subscribe();
   }
 
   get firstname(): AbstractControl {
