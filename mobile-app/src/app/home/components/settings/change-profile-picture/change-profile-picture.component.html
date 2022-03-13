@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="profile-picture" *ngIf="user$ | async as user">
+  <div class="profile-picture" *ngIf="user$ | async as user" (click)="showProfilePictureActions()">
     <span>{{user.firstName[0].toUpperCase()}}{{user.lastName[0].toUpperCase()}}</span>
   </div>
 </div>

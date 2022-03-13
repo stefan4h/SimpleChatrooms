@@ -1,8 +1,9 @@
 .wrapper{
-  width: 1000px;
   display: flex;
   flex-flow: row;
-  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;
 
   .profile-picture {
     display: flex;
@@ -15,7 +16,6 @@
     background: lightgreen;
     border: 1.5px solid black;
     border-radius: 50%;
-    margin-right: 50px;
     cursor: pointer;
   }
 

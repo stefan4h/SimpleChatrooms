@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace simple_chatrooms_backend.Services {
-    public abstract class ARepository<T, Id> : IRepository<T, Id> where T : class {
+    public abstract class ARepository<T> : IRepository<T> where T : class {
 
         protected readonly SimpleChatroomsContext _context;
         public ARepository(SimpleChatroomsContext context) {
@@ -24,7 +24,7 @@ namespace simple_chatrooms_backend.Services {
             return _context.Set<T>().ToList();
         }
 
-        public T GetOne(Id id) {
+        public T GetOne(Guid id) {
             return _context.Set<T>().Find(id);
         }
 

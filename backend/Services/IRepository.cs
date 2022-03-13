@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace simple_chatrooms_backend.Services {
-    interface IRepository<T, Id> where T : class {
-        T GetOne(Id id);
+    public interface IRepository<T> where T : class {
+        T GetOne(Guid id);
         IEnumerable<T> GetAll();
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
