@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using simple_chatrooms_backend.Entities;
-using simple_chatrooms_backend.Models;
+using simple_chatrooms_backend.Models.User;
 using simple_chatrooms_backend.Services;
 using System;
 using System.Collections.Generic;
