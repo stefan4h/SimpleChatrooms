@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../services/auth/auth.service";
 import {Observable} from "rxjs";
 import {User} from "../models/user.model";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,7 @@ import {User} from "../models/user.model";
 export class HomePage implements OnInit {
 
   user$: Observable<User>;
+  environment = environment;
 
   constructor(public authService: AuthService) {
   }

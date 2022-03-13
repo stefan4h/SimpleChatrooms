@@ -2,10 +2,11 @@
   <ion-toolbar>
 
     <ion-title>
-      <div class="title-wrapper">
-        <div class="profile-picture" *ngIf="user$ | async as user" routerLink="/settings">
+      <div class="title-wrapper" *ngIf="user$ | async as user">
+        <div class="profile-picture" *ngIf="!user.profilePicture" routerLink="/settings">
           <span>{{user.firstName[0].toUpperCase()}}{{user.lastName[0].toUpperCase()}}</span>
         </div>
+        <img class="profile-picture" *ngIf="user.profilePicture" routerLink="/settings" [src]="environment.imageURL+user.profilePicture">
         <div class="title">SimpleChatrooms</div>
       </div>
     </ion-title>
