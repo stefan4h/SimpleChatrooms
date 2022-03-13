@@ -1,0 +1,51 @@
+<div class="wrapper" *ngIf="user$ | async as user">
+  <p (click)="editModalOpen=true">
+    {{user.firstName}} {{user.lastName}}
+    <ion-icon name="create-outline"></ion-icon>
+  </p>
+</div>
+
+<ion-modal [isOpen]="editModalOpen">
+  <ng-template>
+
+    <ion-header translucent>
+      <ion-toolbar>
+        <ion-title>Change Name</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="editModalOpen=false">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <form [formGroup]="editNameForm" class="ion-padding">
+
+      <ion-item>
+        <ion-label position="floating">First Name</ion-label>
+        <ion-input formControlName="firstName" autocomplete="given-name" clearInput></ion-input>
+      </ion-item>
+      <div class="error-wrapper">
+        <span class="error" *ngIf="firstName.hasError('required') && (firstName.dirty || firstName.touched)">
+        First Name is required
+      </span>
+      </div>
+
+
+      <ion-item>
+        <ion-label position="floating">Last Name</ion-label>
+        <ion-input formControlName="lastName" autocomplete="family-name" clearInput></ion-input>
+      </ion-item>
+      <div class="error-wrapper">
+      <span class="error" *ngIf="lastName.hasError('required') && (lastName.dirty || lastName.touched)">
+        Last Name is required
+      </span>
+      </div>
+
+      <div style="flex: 1 auto"></div>
+
+      <ion-button [appBtnLoading]="loading" color="primary" expand="block" [disabled]="editNameForm.invalid" (click)="edit()">
+        Change
+      </ion-button>
+
+    </form>
+  </ng-template>
+</ion-modal>

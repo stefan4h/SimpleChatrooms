@@ -7,8 +7,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content class="ion-padding">
+
+<main>
 
   <app-change-profile-picture></app-change-profile-picture>
+
+  <app-change-name></app-change-name>
+
+  <div style="flex: 1 auto"></div>
+
+  <ion-button color="primary" expand="block" (click)="authService.logout()">Logout</ion-button>
+
+</main>
 
 </ion-content>

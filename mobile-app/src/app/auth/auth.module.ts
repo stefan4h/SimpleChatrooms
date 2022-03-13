@@ -14,13 +14,16 @@ import {AppModule} from "../app.module";
 import {BtnLoadingDirective} from "../shared/directives/btn-loading.directive";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        AuthPageRoutingModule,
-        ReactiveFormsModule,
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    AuthPageRoutingModule,
+    ReactiveFormsModule,
+  ],
+  exports: [
+    BtnLoadingDirective
+  ],
   declarations: [
     AuthPage,
     StartComponent,

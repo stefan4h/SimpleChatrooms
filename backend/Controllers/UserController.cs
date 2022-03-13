@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using simple_chatrooms_backend.Entities;
-using simple_chatrooms_backend.Models;
+using simple_chatrooms_backend.Models.User;
 using simple_chatrooms_backend.Services;
 using System;
 using System.Collections.Generic;
@@ -31,6 +31,17 @@ namespace simple_chatrooms_backend.Controllers {
         [HttpGet("{userId}")]
         public ActionResult<UserDto> GetOne(Guid userId) {
             return Ok(_mapper.Map<UserDto>(_userRepository.GetOne(userId)));
+        }
+
+        [HttpPut("{userId}")]
+        public ActionResult<UserDto> Update(Guid userId, UserUpdateDto dto) {
+            var user = _userRepository.GetOne(userId);
+            user.FirstName = dto.FirstName;
+            user.LastName = dto.LastName;
+            _userRepository.Update(user);
+            _userRepository.Save();
+
+            return Ok(_mapper.Map<UserDto>(user));
         }
 
         [HttpPost("{userId}/set-profile-picture")]

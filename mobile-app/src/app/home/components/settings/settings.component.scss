@@ -1,0 +1,11 @@
+main {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+
+  ion-button {
+    width: 100%;
+    margin-top: 15px;
+    height: 45px;
+  }
+}

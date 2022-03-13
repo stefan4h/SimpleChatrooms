@@ -14,11 +14,15 @@ export class UserService {
               private authService: AuthService) {
   }
 
+  update(firstName: string, lastName: string): Observable<User> {
+    return this.http.put<User>(environment.apiURL + `users/${this.authService.user.id}`, {firstName, lastName});
+  }
+
   setProfilePicture(form: FormData): Observable<User> {
     return this.http.post<User>(environment.apiURL + `users/${this.authService.user.id}/set-profile-picture`, form);
   }
 
-  removeProfilePicture():Observable<User>{
+  removeProfilePicture(): Observable<User> {
     return this.http.post<User>(environment.apiURL + `users/${this.authService.user.id}/remove-profile-picture`, {});
   }
 }
