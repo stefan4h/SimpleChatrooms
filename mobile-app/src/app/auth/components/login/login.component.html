@@ -7,8 +7,34 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <form [formGroup]="loginForm">
 
+    <div style="flex: 1 auto"></div>
 
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input formControlName="username" autocomplete="username" clearInput></ion-input>
+    </ion-item>
+    <div class="error-wrapper">
+      <span class="error" *ngIf="username.hasError('required') && (username.dirty || username.touched)">
+        A Username is required
+      </span>
+    </div>
 
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password" clearInput></ion-input>
+    </ion-item>
+    <div class="error-wrapper">
+      <span class="error" *ngIf="password.hasError('required') && (password.dirty || password.touched)">A password is required</span>
+    </div>
+
+    <div style="flex: 1 auto"></div>
+
+    <ion-button [appBtnLoading]="loading" color="primary" expand="block" [disabled]="loginForm.invalid" (click)="register()">
+      Login
+    </ion-button>
+
+  </form>
 </ion-content>
