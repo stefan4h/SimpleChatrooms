@@ -43,7 +43,8 @@ namespace simple_chatrooms_backend {
             {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder => {
-                                      builder.WithOrigins("http://127.0.0.1:4200");
+                                      builder.AllowAnyOrigin();
+                                      //builder.WithOrigins("http://127.0.0.1:4200");
                                       builder.AllowAnyHeader();
                                   });
             });
