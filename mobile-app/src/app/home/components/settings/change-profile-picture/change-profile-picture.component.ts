@@ -40,8 +40,7 @@ export class ChangeProfilePictureComponent implements OnInit {
     }, {
       text: 'Picture',
       icon: 'image-outline',
-      handler: () => {
-      }
+      handler: () => this.setProfilePictureFromGalerie()
     }];
 
     // only add remove button if a profile picture exists
@@ -63,6 +62,20 @@ export class ChangeProfilePictureComponent implements OnInit {
 
   setProfilePictureFromCamera() {
     this.photoService.getPictureFromCamera().then((picture: Blob) => {
+      let form: FormData = new FormData();
+      form.append('image', picture, 'picture.png');
+      this.userService.setProfilePicture(form).subscribe(
+        (user: User) => {
+          this.toastService.success('Profile picture was updated');
+          this.authService.reload();
+        },
+        error => this.toastService.error('Profile picture could not be changed')
+      )
+    });
+  }
+
+  setProfilePictureFromGalerie() {
+    this.photoService.getPictureFromGalerie().then((picture: Blob) => {
       let form: FormData = new FormData();
       form.append('image', picture, 'picture.png');
       this.userService.setProfilePicture(form).subscribe(

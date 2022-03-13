@@ -25,6 +25,20 @@ export class PhotoService {
     return this.b64toBlob(capturedPhoto.base64String, 'image/png');
   }
 
+  public async getPictureFromGalerie() {
+    // Take a photo
+    const capturedPhoto = await Camera.getPhoto({
+      resultType: CameraResultType.Base64,
+      source: CameraSource.Photos,
+      quality: 100,
+      saveToGallery: false,
+      correctOrientation: true
+    });
+
+
+    return this.b64toBlob(capturedPhoto.base64String, 'image/png');
+  }
+
   private b64toBlob(b64Data, contentType = '', sliceSize = 512): Blob {
     const byteCharacters = atob(b64Data);
     const byteArrays = [];
