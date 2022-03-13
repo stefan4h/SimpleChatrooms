@@ -4,4 +4,5 @@ export interface User {
   lastName: string;
   username: string;
   token?: string;
+  profilePicture?: string;
 }

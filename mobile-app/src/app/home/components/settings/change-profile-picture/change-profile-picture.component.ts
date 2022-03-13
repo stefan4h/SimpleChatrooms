@@ -3,6 +3,7 @@ import {AuthService} from "../../../../services/auth/auth.service";
 import {Observable} from "rxjs";
 import {User} from "../../../../models/user.model";
 import {ActionSheetController} from "@ionic/angular";
+import {PhotoService} from "../../../../services/photo.service";
 
 @Component({
   selector: 'app-change-profile-picture',
@@ -11,14 +12,17 @@ import {ActionSheetController} from "@ionic/angular";
 })
 export class ChangeProfilePictureComponent implements OnInit {
 
+  user: User;
   user$: Observable<User>;
 
   constructor(private authService: AuthService,
-              private actionSheetController: ActionSheetController) {
+              private actionSheetController: ActionSheetController,
+              private photoService: PhotoService) {
   }
 
   ngOnInit() {
     this.user$ = this.authService.user$;
+    this.user$.subscribe(user => this.user = user);
   }
 
   async showProfilePictureActions() {
@@ -34,16 +38,21 @@ export class ChangeProfilePictureComponent implements OnInit {
         text: 'Picture',
         icon: 'image-outline',
         handler: () => {
-          console.log('Picture clicked');
+          this.photoService.addNewToGallery()
         }
-      }, {
+      }]
+    });
+
+    // only add remove button if a profile picture exists
+    if (this.user?.profilePicture)
+      actionSheet.buttons.push({
         text: 'Remove',
         icon: 'close-outline',
         handler: () => {
           console.log('Delete clicked');
         }
-      }]
-    });
+      });
+
     await actionSheet.present();
   }
 

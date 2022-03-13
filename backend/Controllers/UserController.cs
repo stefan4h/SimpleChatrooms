@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using simple_chatrooms_backend.Entities;
+using simple_chatrooms_backend.Models;
 using simple_chatrooms_backend.Services;
 using System;
 using System.Collections.Generic;
@@ -19,13 +21,15 @@ namespace simple_chatrooms_backend.Controllers {
     public class UserController : ControllerBase {
 
         private readonly IUserRepository<User> _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserRepository<User> userRepository) {
+        public UserController(IUserRepository<User> userRepository,IMapper mapper) {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         [HttpPost("{userId}/set-profile-picture")]
-        public IActionResult SetProfilePicture(Guid userId, [FromForm] IFormFile image) {
+        public ActionResult<UserDto> SetProfilePicture(Guid userId, [FromForm] IFormFile image) {
             var user = _userRepository.GetOne(userId);
             try {
                 string path = "Images\\";
@@ -43,7 +47,7 @@ namespace simple_chatrooms_backend.Controllers {
                     user.ProfilePicture = fileName;
                     _userRepository.Update(user);
                     _userRepository.Save();
-                    return Ok(user);
+                    return Ok(_mapper.Map<UserDto>(user));
                 }
 
             } catch (Exception ex) {
