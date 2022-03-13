@@ -59,6 +59,16 @@ export class AuthService {
       );
   }
 
+  public reload(): void {
+    this.http.get<User>(environment.apiURL + `users/${this._user.value.id}`).subscribe(
+      (user: User) => {
+        user.token = this.user.token;
+        this.storageService.set('user', user);
+        this._user.next(user);
+      }
+    );
+  }
+
   public logout(): void {
     this.storageService.set('user', null);
     this.router.navigate(['/auth']);

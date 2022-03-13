@@ -23,9 +23,14 @@ namespace simple_chatrooms_backend.Controllers {
         private readonly IUserRepository<User> _userRepository;
         private readonly IMapper _mapper;
 
-        public UserController(IUserRepository<User> userRepository,IMapper mapper) {
+        public UserController(IUserRepository<User> userRepository, IMapper mapper) {
             _userRepository = userRepository;
             _mapper = mapper;
+        }
+
+        [HttpGet("{userId}")]
+        public ActionResult<UserDto> GetOne(Guid userId) {
+            return Ok(_mapper.Map<UserDto>(_userRepository.GetOne(userId)));
         }
 
         [HttpPost("{userId}/set-profile-picture")]
@@ -49,6 +54,25 @@ namespace simple_chatrooms_backend.Controllers {
                     _userRepository.Save();
                     return Ok(_mapper.Map<UserDto>(user));
                 }
+
+            } catch (Exception ex) {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost("{userId}/remove-profile-picture")]
+        public ActionResult<UserDto> RemoveProfilePicture(Guid userId) {
+            var user = _userRepository.GetOne(userId);
+            try {
+                string path = "Images\\";
+
+                if (user.ProfilePicture != null && System.IO.File.Exists(path + user.ProfilePicture))
+                    System.IO.File.Delete(path + user.ProfilePicture);
+
+                user.ProfilePicture = null;
+                _userRepository.Update(user);
+                _userRepository.Save();
+                return Ok(_mapper.Map<UserDto>(user));
 
             } catch (Exception ex) {
                 return StatusCode(500);

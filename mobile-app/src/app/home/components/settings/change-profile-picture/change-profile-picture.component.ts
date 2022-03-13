@@ -4,6 +4,10 @@ import {Observable} from "rxjs";
 import {User} from "../../../../models/user.model";
 import {ActionSheetController} from "@ionic/angular";
 import {PhotoService} from "../../../../services/photo.service";
+import {UserService} from "../../../../services/user.service";
+import {ToastService} from "../../../../services/toast.service";
+import {environment} from "../../../../../environments/environment";
+import {error} from "protractor";
 
 @Component({
   selector: 'app-change-profile-picture',
@@ -14,10 +18,13 @@ export class ChangeProfilePictureComponent implements OnInit {
 
   user: User;
   user$: Observable<User>;
+  environment = environment;
 
   constructor(private authService: AuthService,
               private actionSheetController: ActionSheetController,
-              private photoService: PhotoService) {
+              private userService: UserService,
+              private toastService: ToastService,
+              public photoService: PhotoService) {
   }
 
   ngOnInit() {
@@ -26,34 +33,55 @@ export class ChangeProfilePictureComponent implements OnInit {
   }
 
   async showProfilePictureActions() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Profile Picture',
-      buttons: [{
-        text: 'Camera',
-        icon: 'camera-outline',
-        handler: () => {
-          console.log('Camera clicked');
-        }
-      }, {
-        text: 'Picture',
-        icon: 'image-outline',
-        handler: () => {
-          this.photoService.addNewToGallery()
-        }
-      }]
-    });
+    let buttons = [{
+      text: 'Camera',
+      icon: 'camera-outline',
+      handler: () => this.setProfilePictureFromCamera()
+    }, {
+      text: 'Picture',
+      icon: 'image-outline',
+      handler: () => {
+      }
+    }];
 
     // only add remove button if a profile picture exists
     if (this.user?.profilePicture)
-      actionSheet.buttons.push({
+      buttons.push({
         text: 'Remove',
         icon: 'close-outline',
-        handler: () => {
-          console.log('Delete clicked');
-        }
+        handler: () => this.removeProfilePicture()
       });
+
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Profile Picture',
+      buttons: buttons
+    });
 
     await actionSheet.present();
   }
 
+
+  setProfilePictureFromCamera() {
+    this.photoService.getPictureFromCamera().then((picture: Blob) => {
+      let form: FormData = new FormData();
+      form.append('image', picture, 'picture.png');
+      this.userService.setProfilePicture(form).subscribe(
+        (user: User) => {
+          this.toastService.success('Profile picture was updated');
+          this.authService.reload();
+        },
+        error => this.toastService.error('Profile picture could not be changed')
+      )
+    });
+  }
+
+  removeProfilePicture() {
+    this.userService.removeProfilePicture().subscribe(
+      (user: User) => {
+        this.toastService.success('Profile picture was removed');
+        this.authService.reload();
+      },
+      error => this.toastService.error('Profile picture could not be removed')
+    );
+  }
 }

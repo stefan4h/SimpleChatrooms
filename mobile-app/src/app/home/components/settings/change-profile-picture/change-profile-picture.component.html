@@ -1,5 +1,6 @@
-<div class="wrapper">
-  <div class="profile-picture" *ngIf="user$ | async as user" (click)="showProfilePictureActions()">
+<div class="wrapper" *ngIf="user$ | async as user">
+  <div class="profile-picture" *ngIf="!user.profilePicture"  (click)="showProfilePictureActions()">
     <span>{{user.firstName[0].toUpperCase()}}{{user.lastName[0].toUpperCase()}}</span>
   </div>
+  <img class="profile-picture" *ngIf="user.profilePicture" [src]="environment.imageURL+user.profilePicture" (click)="showProfilePictureActions()">
 </div>
