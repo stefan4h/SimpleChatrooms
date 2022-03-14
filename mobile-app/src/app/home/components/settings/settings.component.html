@@ -13,6 +13,12 @@
 
   <app-change-profile-picture></app-change-profile-picture>
 
+  <div class="wrapper" *ngIf="user$ | async as user">
+    <p>
+      {{user.username}}
+    </p>
+  </div>
+
   <app-change-name></app-change-name>
 
   <div style="flex: 1 auto"></div>

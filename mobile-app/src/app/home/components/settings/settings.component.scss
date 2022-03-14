@@ -8,4 +8,21 @@ main {
     margin-top: 15px;
     height: 45px;
   }
+
+  .wrapper{
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+
+    p{
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      justify-content: center;
+      font-size: x-large;
+      font-weight: bolder;
+      cursor: pointer;
+    }
+  }
 }
