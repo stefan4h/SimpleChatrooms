@@ -22,5 +22,13 @@
   }
 }
 
+ion-fab-list[side="top"]{
+  left: -150px;
+
+  ion-button{
+    width: 100%;
+  }
+}
+
 
 

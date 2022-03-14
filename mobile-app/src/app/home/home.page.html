@@ -15,4 +15,23 @@
 
 <ion-content [fullscreen]="true">
 
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="top">
+      <ion-button color="primary">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Create Chatroom
+      </ion-button>
+    </ion-fab-list>
+    <ion-fab-list side="start">
+      <ion-button color="secondary">
+        <ion-icon slot="start" name="chatbubble-ellipses-outline"></ion-icon>
+        Join Chatroom
+      </ion-button>
+    </ion-fab-list>
+  </ion-fab>
+
 </ion-content>

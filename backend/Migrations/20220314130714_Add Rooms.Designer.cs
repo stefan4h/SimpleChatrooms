@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using simple_chatrooms_backend;
 
 namespace simple_chatrooms_backend.Migrations
 {
     [DbContext(typeof(SimpleChatroomsContext))]
-    partial class SimpleChatroomsContextModelSnapshot : ModelSnapshot
+    [Migration("20220314130714_Add Rooms")]
+    partial class AddRooms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

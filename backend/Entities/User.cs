@@ -34,5 +34,8 @@ namespace simple_chatrooms_backend.Entities {
 
         [NotMapped]
         public IFormFile ProfilePictureFile { get; set; }
+
+        public ICollection<Room> Rooms { get; set; }
+        public List<RoomUser> RoomUsers { get; set; }
     }
 }

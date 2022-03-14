@@ -1,10 +1,10 @@
-.wrapper{
+.wrapper {
   width: 100%;
   display: flex;
   flex-flow: row;
   justify-content: center;
 
-  p{
+  p {
     display: flex;
     flex-flow: row;
     align-items: center;
@@ -12,7 +12,7 @@
     font-size: x-large;
     cursor: pointer;
 
-    ion-icon{
+    ion-icon {
       margin-left: 5px;
       font-size: xx-large;
     }
