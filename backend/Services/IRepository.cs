@@ -13,5 +13,6 @@ namespace simple_chatrooms_backend.Services {
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
         bool Save();
+        bool Exists(Guid id);
     }
 }

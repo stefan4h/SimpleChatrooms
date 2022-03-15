@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using simple_chatrooms_backend.Entities;
-using simple_chatrooms_backend.Models.User;
-using simple_chatrooms_backend.Services;
+using simple_chatrooms_backend.Models.UserDtos;
+using simple_chatrooms_backend.Services.UserRepository;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,8 +24,8 @@ namespace simple_chatrooms_backend.Controllers {
         private readonly IMapper _mapper;
 
         public UserController(IUserRepository<User> userRepository, IMapper mapper) {
-            _userRepository = userRepository;
-            _mapper = mapper;
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet("{userId}")]

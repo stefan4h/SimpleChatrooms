@@ -12,8 +12,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using simple_chatrooms_backend.Entities;
 using simple_chatrooms_backend.Services;
+using simple_chatrooms_backend.Services.RoomRepository;
+using simple_chatrooms_backend.Services.UserRepository;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,13 +37,15 @@ namespace simple_chatrooms_backend {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(setupAction => {
+                    setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "simple_chatrooms_backend", Version = "v1" });
             });
 
-            services.AddCors(options =>
-            {
+            services.AddCors(options => {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder => {
                                       builder.AllowAnyOrigin();
@@ -53,6 +58,7 @@ namespace simple_chatrooms_backend {
 
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository<User>, UserRepository>();
+            services.AddScoped<IRoomRepository<Room>, RoomRepository>();
 
             // source for authentication: https://medium.com/c-sharp-progarmming/jwt-authentication-in-asp-net-core-web-api-82895c29734c
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -79,8 +85,8 @@ namespace simple_chatrooms_backend {
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "simple_chatrooms_backend v1"));
             }
 
-            app.UseStaticFiles(new StaticFileOptions { 
-                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath,"Images")),
+            app.UseStaticFiles(new StaticFileOptions {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Images")),
                 RequestPath = "/images"
             });
 

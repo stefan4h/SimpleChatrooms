@@ -43,5 +43,9 @@ namespace simple_chatrooms_backend.Services {
         public void Update(T entity) {
             _context.Set<T>().Update(entity);
         }
+
+        public bool Exists(Guid id) {
+            return _context.Set<T>().Find(id) != null;
+        }
     }
 }

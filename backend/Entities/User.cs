@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace simple_chatrooms_backend.Entities {
@@ -30,12 +32,18 @@ namespace simple_chatrooms_backend.Entities {
         [MaxLength(50)]
         public string LastName { get; set; }
 
+
         public string ProfilePicture { get; set; }
 
         [NotMapped]
         public IFormFile ProfilePictureFile { get; set; }
 
+        [JsonIgnore]
+        [IgnoreDataMember]
         public ICollection<Room> Rooms { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public List<RoomUser> RoomUsers { get; set; }
     }
 }

@@ -5,7 +5,11 @@ import {SettingsComponent} from "./components/settings/settings.component";
 
 const routes: Routes = [
   {path: '', component: HomePage,},
-  {path: 'settings', component: SettingsComponent}
+  {path: 'settings', component: SettingsComponent},
+  {
+    path: 'create-chatroom',
+    loadChildren: () => import('./create-chatroom/create-chatroom.module').then( m => m.CreateChatroomPageModule)
+  }
 ];
 
 @NgModule({
