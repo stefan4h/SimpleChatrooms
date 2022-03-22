@@ -10,5 +10,7 @@ namespace simple_chatrooms_backend.Services.RoomRepository {
         Room GetByJoinString(string joinString);
 
         IEnumerable<Room> GetByUser(Guid userId);
+
+        Room GetOneWithUsers(Guid roomId);
     }
 }

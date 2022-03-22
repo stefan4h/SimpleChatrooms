@@ -6,8 +6,8 @@ import {AuthService} from "../../../services/auth/auth.service";
 
 @Component({
   selector: 'app-rooms',
-  templateUrl: './rooms.component.html',
-  styleUrls: ['./rooms.component.scss'],
+  template: `<app-room-list-item *ngFor="let room of rooms$|async" [room]="room"
+                                 [routerLink]="['/rooms',room.id]"></app-room-list-item>`,
 })
 export class RoomsComponent implements OnInit {
 

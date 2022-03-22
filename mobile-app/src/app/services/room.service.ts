@@ -25,6 +25,10 @@ export class RoomService {
     this.http.get<Room[]>(environment.apiURL + `users/${this.authService.user.id}/rooms`).subscribe((rooms: Room[]) => this._rooms.next(rooms));
   }
 
+  getOne(roomId: string): Observable<Room> {
+    return this.http.get<Room>(environment.apiURL + `users/${this.authService.user.id}/rooms/${roomId}`);
+  }
+
   create(name: string, description: string, joinString: string): Observable<Room> {
     return this.http.post<Room>(environment.apiURL + `users/${this.authService.user.id}/rooms`, {
       name,

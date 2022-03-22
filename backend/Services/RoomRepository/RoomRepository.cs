@@ -17,5 +17,9 @@ namespace simple_chatrooms_backend.Services.RoomRepository {
         public IEnumerable<Room> GetByUser(Guid userId) {
             return _context.Users.Where(u => u.Id == userId).SelectMany(u => u.Rooms).Include(r => r.Users);
         }
+
+        public Room GetOneWithUsers(Guid roomId) {
+            return _context.Rooms.Include(r => r.Users).Where(r => r.Id == roomId).FirstOrDefault();
+        }
     }
 }

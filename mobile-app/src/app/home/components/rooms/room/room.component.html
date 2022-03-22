@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="auth"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>
+
+      <div class="title-wrapper" *ngIf="room$ | async as room">
+
+        <div class="picture" *ngIf="!room.picture">
+          <span>{{room.name[0].toUpperCase()}}</span>
+        </div>
+
+        <img class="picture" *ngIf="room.picture" [src]="environment.imageURL+room.picture">
+
+        <div class="title">{{room.name}}</div>
+
+      </div>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>

@@ -27,7 +27,7 @@ namespace simple_chatrooms_backend.Services {
 
             var tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(claims),
-                Expires = null,
+                Expires = DateTime.Now.AddYears(1),
                 SigningCredentials = creds,
             };
 

@@ -38,6 +38,19 @@ namespace simple_chatrooms_backend.Controllers {
             return Ok(_mapper.Map<IEnumerable<RoomDto>>(rooms));
         }
 
+        [HttpGet("{roomId}")]
+        public ActionResult<RoomDto> GetOne(Guid userId,Guid roomId) {
+            if (!_userRepository.Exists(userId))
+                return NotFound();
+
+            if (!_roomRepository.Exists(roomId))
+                return NotFound();
+
+            var room = _roomRepository.GetOneWithUsers(roomId);
+
+            return Ok(_mapper.Map<RoomDto>(room));
+        }
+
         [HttpPost]
         public ActionResult<RoomDto> Create(Guid userId, RoomCreateDto dto) {
             if (!_userRepository.Exists(userId))
