@@ -1,4 +1,5 @@
-﻿using simple_chatrooms_backend.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using simple_chatrooms_backend.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,10 @@ namespace simple_chatrooms_backend.Services.RoomRepository {
 
         public Room GetByJoinString(string joinString) {
             return _context.Rooms.Where(r => r.JoinString.ToLower().Equals(joinString.ToLower())).FirstOrDefault();
+        }
+
+        public IEnumerable<Room> GetByUser(Guid userId) {
+            return _context.Users.Where(u => u.Id == userId).SelectMany(u => u.Rooms).Include(r => r.Users);
         }
     }
 }

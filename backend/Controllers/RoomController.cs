@@ -28,6 +28,16 @@ namespace simple_chatrooms_backend.Controllers {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        [HttpGet]
+        public ActionResult<IEnumerable<RoomDto>> GetAll(Guid userId) {
+            if (!_userRepository.Exists(userId))
+                return NotFound();
+
+            var rooms = _roomRepository.GetByUser(userId);
+
+            return Ok(_mapper.Map<IEnumerable<RoomDto>>(rooms));
+        }
+
         [HttpPost]
         public ActionResult<RoomDto> Create(Guid userId, RoomCreateDto dto) {
             if (!_userRepository.Exists(userId))
@@ -42,6 +52,7 @@ namespace simple_chatrooms_backend.Controllers {
             _roomRepository.Save();
 
             _userRepository.AddRoom(userId, room);
+            _roomRepository.Save();
 
             return Ok(_mapper.Map<RoomDto>(room));
         }
