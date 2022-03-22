@@ -38,6 +38,7 @@ export class CreateChatroomPage implements OnInit {
       .subscribe((room: Room) => {
           this.room = room;
           this.toastService.success('Chatroom created successfully!');
+          this.roomService.getAll();
         },
         error => this.toastService.error('Chatroom could not be created'))
   }

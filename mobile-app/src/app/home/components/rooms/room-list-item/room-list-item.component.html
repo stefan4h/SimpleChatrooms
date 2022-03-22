@@ -1,0 +1,12 @@
+<div class="wrapper">
+
+  <div class="picture" *ngIf="!room.picture">
+    <span>{{room.name[0].toUpperCase()}}</span>
+  </div>
+  <img class="picture" *ngIf="room.picture" [src]="environment.imageURL+room.picture">
+
+  <div class="title">
+    {{room.name}}
+  </div>
+
+</div>

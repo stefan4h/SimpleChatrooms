@@ -10,7 +10,7 @@
 
 <ion-content>
 
-  <form [formGroup]="createChatroomFrom" class="ion-padding" *ngIf="!room">
+  <form [formGroup]="createChatroomFrom" class="ion-padding">
 
     <ion-item>
       <ion-label position="floating">Chatgroup Name</ion-label>
@@ -45,9 +45,5 @@
     </ion-button>
 
   </form>
-
-  <div *ngIf="room">
-    {{room.name}}
-  </div>
 
 </ion-content>

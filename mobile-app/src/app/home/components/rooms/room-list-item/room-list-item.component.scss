@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  margin: 10px;
+
+  .picture {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    min-width: 65px;
+    min-height: 65px;
+    background: lightgreen;
+    border: 1.5px solid black;
+    border-radius: 50%;
+    margin-right: 20px;
+    cursor: pointer;
+    font-size: xx-large;
+  }
+
+  .title {
+    font-size: x-large;
+    white-space: nowrap;
+  }
+}
