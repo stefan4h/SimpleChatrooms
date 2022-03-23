@@ -47,7 +47,7 @@ export class ChangeRoomPictureComponent implements OnInit {
       });
 
     const actionSheet = await this.actionSheetController.create({
-      header: 'Profile Picture',
+      header: 'Change Picture',
       buttons: buttons
     });
 

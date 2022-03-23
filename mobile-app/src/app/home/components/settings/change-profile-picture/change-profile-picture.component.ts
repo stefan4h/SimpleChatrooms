@@ -52,7 +52,7 @@ export class ChangeProfilePictureComponent implements OnInit {
       });
 
     const actionSheet = await this.actionSheetController.create({
-      header: 'Profile Picture',
+      header: 'Change Profile Picture',
       buttons: buttons
     });
 

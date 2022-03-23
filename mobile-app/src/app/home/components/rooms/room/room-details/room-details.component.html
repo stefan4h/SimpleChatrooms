@@ -17,11 +17,22 @@
       <p>
         {{room.name}}
       </p>
+
+      <div>
+        {{room.description}}
+      </div>
+
+      <div class="joinstring-wrapper">
+        <strong>JoinString: </strong>
+        <span>{{room.joinString}}</span>
+      </div>
     </div>
+
+    <ion-button color="primary" expand="block" [routerLink]="['/rooms',room.id,'edit']">Edit Room</ion-button>
 
     <div style="flex: 1 auto"></div>
 
-    <ion-button color="primary" expand="block" (click)="leave(room.id)">Leave Room</ion-button>
+    <ion-button color="warning" expand="block" (click)="leave(room.id)">Leave Room</ion-button>
 
   </main>
 </ion-content>

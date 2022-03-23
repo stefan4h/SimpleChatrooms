@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar *ngIf="room$|async as room">
+    <ion-title size="large">Edit "{{room.name}}"</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="auth"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content *ngIf="room$|async as room">
+
+  <form [formGroup]="editChatroomForm" class="ion-padding">
+
+    <ion-item>
+      <ion-label position="floating">Chatgroup Name</ion-label>
+      <ion-input formControlName="name" clearInput></ion-input>
+    </ion-item>
+    <div class="error-wrapper">
+        <span class="error" *ngIf="name.hasError('required') && (name.dirty || name.touched)">
+        A Name is required
+      </span>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea formControlName="description" autocomplete="family-name" clearInput></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Unique Join String</ion-label>
+      <!--      joinString must always be upper case -->
+      <ion-input formControlName="joinString" clearInput (ionChange)="joinString.setValue(joinString.value.toUpperCase())"></ion-input>
+    </ion-item>
+    <div class="error-wrapper">
+        <span class="error" *ngIf="joinString.hasError('required') && (joinString.dirty || joinString.touched)">
+        A Join String is require to allow Users to join the Group
+      </span>
+    </div>
+
+    <div style="flex: 1 auto"></div>
+
+    <ion-button [appBtnLoading]="loading" color="primary" expand="block" [disabled]="editChatroomForm.invalid"
+                (click)="edit(room.id)">
+      Edit
+    </ion-button>
+
+  </form>
+
+</ion-content>
+

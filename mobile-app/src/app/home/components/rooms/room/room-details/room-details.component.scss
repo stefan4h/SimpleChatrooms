@@ -12,7 +12,7 @@ main {
   .wrapper {
     width: 100%;
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
     justify-content: center;
 
     p {
@@ -24,6 +24,14 @@ main {
       font-weight: bolder;
       cursor: pointer;
       text-align: center;
+    }
+
+    div {
+      font-size: larger;
+      text-align: center;
+    }
+    .joinstring-wrapper{
+      margin-top: 15px;
     }
   }
 }

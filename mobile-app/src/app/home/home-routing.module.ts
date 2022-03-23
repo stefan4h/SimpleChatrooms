@@ -4,6 +4,7 @@ import {HomePage} from './home.page';
 import {SettingsComponent} from "./components/settings/settings.component";
 import {RoomComponent} from "./components/rooms/room/room.component";
 import {RoomDetailsComponent} from "./components/rooms/room/room-details/room-details.component";
+import {EditRoomComponent} from "./components/rooms/room/room-details/edit-room/edit-room.component";
 
 const routes: Routes = [
   {path: '', component: HomePage},
@@ -11,6 +12,7 @@ const routes: Routes = [
     path: 'rooms', children: [
       {path: ':roomId', component: RoomComponent},
       {path: ':roomId/details', component: RoomDetailsComponent},
+      {path: ':roomId/edit', component: EditRoomComponent},
     ]
   },
   {path: 'settings', component: SettingsComponent},

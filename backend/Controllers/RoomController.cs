@@ -74,6 +74,28 @@ namespace simple_chatrooms_backend.Controllers {
             return Ok(_mapper.Map<RoomDto>(room));
         }
 
+        [HttpPut("{roomId}")]
+        public ActionResult<RoomDto> Update(Guid userId, Guid roomId, RoomCreateDto dto) {
+            if (!_userRepository.Exists(userId))
+                return NotFound();
+
+            if (!_roomRepository.Exists(roomId))
+                return NotFound();
+
+            if (_roomRepository.GetByJoinString(dto.JoinString) != null && _roomRepository.GetByJoinString(dto.JoinString).Id != roomId)
+                return BadRequest("A Room with that JoinString already exists");
+
+            var room = _roomRepository.GetOne(roomId);
+            room.Name = dto.Name;
+            room.Description = dto.Description;
+            room.JoinString = dto.JoinString.ToUpper(); // make JoinString always upper case
+
+            _roomRepository.Update(room);
+            _roomRepository.Save();
+
+            return Ok(_mapper.Map<RoomDto>(room));
+        }
+
         [HttpGet("find")]
         public ActionResult<IEnumerable<RoomDto>> Find(Guid userId, [FromQuery] string q) {
             if (!_userRepository.Exists(userId))

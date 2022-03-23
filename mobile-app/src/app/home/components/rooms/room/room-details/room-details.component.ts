@@ -36,4 +36,8 @@ export class RoomDetailsComponent implements OnInit {
     }, error => this.toastService.error('Leaving the room did not work'));
   }
 
+  edit(roomId: string) {
+
+  }
+
 }

@@ -41,6 +41,14 @@ export class RoomService {
     });
   }
 
+  edit(roomId: string, name: string, description: string, joinString: string): Observable<Room> {
+    return this.http.put<Room>(environment.apiURL + `users/${this.authService.user.id}/rooms/${roomId}`, {
+      name,
+      description,
+      joinString
+    });
+  }
+
   join(roomId: string): Observable<Room> {
     return this.http.patch<any>(environment.apiURL + `users/${this.authService.user.id}/rooms/${roomId}/join`, {});
   }
