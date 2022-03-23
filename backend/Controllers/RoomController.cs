@@ -71,6 +71,20 @@ namespace simple_chatrooms_backend.Controllers {
             return Ok(_mapper.Map<RoomDto>(room));
         }
 
+        [HttpPatch("{roomId}/remove")]
+        public ActionResult Remove(Guid userId, Guid roomId) {
+            if (!_userRepository.Exists(userId))
+                return NotFound();
+
+            if (!_roomRepository.Exists(roomId))
+                return NotFound();
+
+            _userRepository.RemoveRoom(userId, roomId);
+            _userRepository.Save();
+
+            return Ok();
+        }
+
         [HttpPost("{roomId}/set-profile-picture")]
         public ActionResult<RoomDto> SetProfilePicture(Guid userId, Guid roomId, [FromForm] IFormFile image) {
             var room = _roomRepository.GetOne(roomId);

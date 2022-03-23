@@ -1,4 +1,5 @@
-﻿using simple_chatrooms_backend.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using simple_chatrooms_backend.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,14 @@ namespace simple_chatrooms_backend.Services.UserRepository {
                 JoinDate = DateTime.Now
             };
             _context.Add(roomUser);
+        }
+
+        public User GetOneWithRooms(Guid id) {
+            return _context.Users.Include(u => u.Rooms).Where(u => u.Id == id).FirstOrDefault();
+        }
+
+        public void RemoveRoom(Guid id, Guid roomId) {
+            GetOneWithRooms(id).Rooms.Remove(_context.Rooms.Find(roomId));
         }
     }
 }
