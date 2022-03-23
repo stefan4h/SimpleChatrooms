@@ -36,4 +36,12 @@ export class RoomService {
       joinString
     });
   }
+
+  setPicture(roomId: string,form: FormData): Observable<Room> {
+    return this.http.post<Room>(environment.apiURL + `users/${this.authService.user.id}/rooms/${roomId}/set-profile-picture`, form);
+  }
+
+  removePicture(roomId: string): Observable<Room> {
+    return this.http.post<Room>(environment.apiURL + `users/${this.authService.user.id}/rooms/${roomId}/remove-profile-picture`, {});
+  }
 }

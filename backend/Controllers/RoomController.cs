@@ -8,6 +8,7 @@ using simple_chatrooms_backend.Services.RoomRepository;
 using simple_chatrooms_backend.Services.UserRepository;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,7 +40,7 @@ namespace simple_chatrooms_backend.Controllers {
         }
 
         [HttpGet("{roomId}")]
-        public ActionResult<RoomDto> GetOne(Guid userId,Guid roomId) {
+        public ActionResult<RoomDto> GetOne(Guid userId, Guid roomId) {
             if (!_userRepository.Exists(userId))
                 return NotFound();
 
@@ -68,6 +69,52 @@ namespace simple_chatrooms_backend.Controllers {
             _roomRepository.Save();
 
             return Ok(_mapper.Map<RoomDto>(room));
+        }
+
+        [HttpPost("{roomId}/set-profile-picture")]
+        public ActionResult<RoomDto> SetProfilePicture(Guid userId, Guid roomId, [FromForm] IFormFile image) {
+            var room = _roomRepository.GetOne(roomId);
+            try {
+                string path = "Images\\";
+                string fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(image.FileName);
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                if (room.Picture != null && System.IO.File.Exists(path + room.Picture))
+                    System.IO.File.Delete(path + room.Picture);
+
+                using (FileStream fileStream = System.IO.File.Create(path + fileName)) {
+                    image.CopyTo(fileStream);
+                    fileStream.Flush();
+                    room.Picture = fileName;
+                    _roomRepository.Update(room);
+                    _roomRepository.Save();
+                    return Ok(_mapper.Map<RoomDto>(room));
+                }
+
+            } catch (Exception ex) {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost("{roomId}/remove-profile-picture")]
+        public ActionResult<RoomDto> RemoveProfilePicture(Guid userId, Guid roomId) {
+            var room = _roomRepository.GetOne(roomId);
+            try {
+                string path = "Images\\";
+
+                if (room.Picture != null && System.IO.File.Exists(path + room.Picture))
+                    System.IO.File.Delete(path + room.Picture);
+
+                room.Picture = null;
+                _roomRepository.Update(room);
+                _roomRepository.Save();
+                return Ok(_mapper.Map<RoomDto>(room));
+
+            } catch (Exception ex) {
+                return StatusCode(500);
+            }
         }
     }
 }

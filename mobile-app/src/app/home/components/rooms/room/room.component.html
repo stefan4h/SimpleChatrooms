@@ -7,7 +7,7 @@
 
     <ion-title>
 
-      <div class="title-wrapper" *ngIf="room$ | async as room">
+      <div class="title-wrapper" *ngIf="room$ | async as room" routerLink="details">
 
         <div class="picture" *ngIf="!room.picture">
           <span>{{room.name[0].toUpperCase()}}</span>

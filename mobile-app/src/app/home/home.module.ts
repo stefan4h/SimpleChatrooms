@@ -12,6 +12,8 @@ import {AuthPageModule} from "../auth/auth.module";
 import {RoomsComponent} from "./components/rooms/rooms.component";
 import {RoomListItemComponent} from "./components/rooms/room-list-item/room-list-item.component";
 import {RoomComponent} from "./components/rooms/room/room.component";
+import {RoomDetailsComponent} from "./components/rooms/room/room-details/room-details.component";
+import {ChangeRoomPictureComponent} from "./components/rooms/room/room-details/change-room-picture/change-room-picture.component";
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import {RoomComponent} from "./components/rooms/room/room.component";
     ChangeNameComponent,
     RoomsComponent,
     RoomListItemComponent,
-    RoomComponent
+    RoomComponent,
+    RoomDetailsComponent,
+    ChangeRoomPictureComponent
   ]
 })
 export class HomePageModule {

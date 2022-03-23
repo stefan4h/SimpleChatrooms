@@ -1,0 +1,6 @@
+<div class="wrapper" *ngIf="room">
+  <div class="picture" *ngIf="!room.picture"  (click)="showPictureActions()">
+    <span>{{room.name[0].toUpperCase()}}</span>
+  </div>
+  <img class="picture" *ngIf="room.picture" [src]="environment.imageURL+room.picture" (click)="showPictureActions()">
+</div>
