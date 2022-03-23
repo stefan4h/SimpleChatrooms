@@ -10,6 +10,11 @@ namespace simple_chatrooms_backend.Services.RoomRepository {
 
         public RoomRepository(SimpleChatroomsContext context) : base(context) { }
 
+        public IEnumerable<Room> FindRooms(string q) {
+            q = q.ToUpper();
+            return _context.Rooms.Where(r => r.JoinString.ToUpper().Contains(q) || r.Name.ToUpper().Contains(q)).ToList();
+        }
+
         public Room GetByJoinString(string joinString) {
             return _context.Rooms.Where(r => r.JoinString.ToLower().Equals(joinString.ToLower())).FirstOrDefault();
         }

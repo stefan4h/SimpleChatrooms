@@ -29,6 +29,10 @@ export class RoomService {
     return this.http.get<Room>(environment.apiURL + `users/${this.authService.user.id}/rooms/${roomId}`);
   }
 
+  find(q: string): Observable<Room[]> {
+    return this.http.get<Room[]>(environment.apiURL + `users/${this.authService.user.id}/rooms/find?q=${q}`);
+  }
+
   create(name: string, description: string, joinString: string): Observable<Room> {
     return this.http.post<Room>(environment.apiURL + `users/${this.authService.user.id}/rooms`, {
       name,
@@ -37,8 +41,12 @@ export class RoomService {
     });
   }
 
+  join(roomId: string): Observable<Room> {
+    return this.http.patch<any>(environment.apiURL + `users/${this.authService.user.id}/rooms/${roomId}/join`, {});
+  }
+
   leave(roomId: string): Observable<Room> {
-    return this.http.patch<any>(environment.apiURL + `users/${this.authService.user.id}/rooms/${roomId}/remove`, {});
+    return this.http.patch<any>(environment.apiURL + `users/${this.authService.user.id}/rooms/${roomId}/leave`, {});
   }
 
   setPicture(roomId: string, form: FormData): Observable<Room> {

@@ -27,5 +27,9 @@ namespace simple_chatrooms_backend.Services.UserRepository {
         public void RemoveRoom(Guid id, Guid roomId) {
             GetOneWithRooms(id).Rooms.Remove(_context.Rooms.Find(roomId));
         }
+
+        public bool HasRoom(Guid id, Guid roomId) {
+            return GetOneWithRooms(id).Rooms.Contains(_context.Rooms.Find(roomId));
+        }
     }
 }

@@ -29,7 +29,8 @@
 
     <ion-item>
       <ion-label position="floating">Unique Join String</ion-label>
-      <ion-input formControlName="joinString" clearInput></ion-input>
+<!--      joinString must always be upper case -->
+      <ion-input formControlName="joinString" clearInput (ionChange)="joinString.setValue(joinString.value.toUpperCase())"></ion-input>
     </ion-item>
     <div class="error-wrapper">
         <span class="error" *ngIf="joinString.hasError('required') && (joinString.dirty || joinString.touched)">

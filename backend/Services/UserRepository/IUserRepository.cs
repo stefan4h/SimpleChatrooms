@@ -10,6 +10,8 @@ namespace simple_chatrooms_backend.Services.UserRepository {
 
         void RemoveRoom(Guid id, Guid roomId);
 
+        bool HasRoom(Guid id, Guid roomId);
+
         public User GetOneWithRooms(Guid id);
     }
 }

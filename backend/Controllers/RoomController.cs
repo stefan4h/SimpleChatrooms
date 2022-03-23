@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using simple_chatrooms_backend.Entities;
 using simple_chatrooms_backend.Models.RoomDtos;
 using simple_chatrooms_backend.Services.RoomRepository;
@@ -62,6 +63,8 @@ namespace simple_chatrooms_backend.Controllers {
 
             var room = _mapper.Map<Room>(dto);
 
+            room.JoinString = room.JoinString.ToUpper(); // make JoinString always upper case
+
             _roomRepository.Add(room);
             _roomRepository.Save();
 
@@ -71,7 +74,21 @@ namespace simple_chatrooms_backend.Controllers {
             return Ok(_mapper.Map<RoomDto>(room));
         }
 
-        [HttpPatch("{roomId}/remove")]
+        [HttpGet("find")]
+        public ActionResult<IEnumerable<RoomDto>> Find(Guid userId, [FromQuery] string q) {
+            if (!_userRepository.Exists(userId))
+                return NotFound();
+
+            // q must be set
+            if (q.IsNullOrEmpty())
+                return NotFound();
+
+            var rooms = _roomRepository.FindRooms(q);
+
+            return Ok(_mapper.Map<IEnumerable<RoomDto>>(rooms));
+        }
+
+        [HttpPatch("{roomId}/leave")]
         public ActionResult Remove(Guid userId, Guid roomId) {
             if (!_userRepository.Exists(userId))
                 return NotFound();
@@ -83,6 +100,26 @@ namespace simple_chatrooms_backend.Controllers {
             _userRepository.Save();
 
             return Ok();
+        }
+
+        [HttpPatch("{roomId}/join")]
+        public ActionResult<RoomDto> Join(Guid userId, Guid roomId) {
+            if (!_userRepository.Exists(userId))
+                return NotFound();
+
+            if (!_roomRepository.Exists(roomId))
+                return NotFound();
+
+            var room = _roomRepository.GetOne(roomId);
+
+            // return room if user already joined
+            if (_userRepository.HasRoom(userId, roomId))
+                return Ok(_mapper.Map<RoomDto>(room));
+
+            _userRepository.AddRoom(userId, room);
+            _roomRepository.Save();
+
+            return Ok(_mapper.Map<RoomDto>(room));
         }
 
         [HttpPost("{roomId}/set-profile-picture")]

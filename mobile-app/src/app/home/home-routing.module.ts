@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'create-chatroom',
     loadChildren: () => import('./create-chatroom/create-chatroom.module').then(m => m.CreateChatroomPageModule)
+  },
+  {
+    path: 'join-chatroom',
+    loadChildren: () => import('./join-chatroom/join-chatroom.module').then( m => m.JoinChatroomPageModule)
   }
 ];
 

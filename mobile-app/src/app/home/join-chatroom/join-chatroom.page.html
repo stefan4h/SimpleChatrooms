@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title size="large">Join a Chatroom</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="auth"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar placeholder="Search by Name or JoinString" (ionChange)="search($event)"></ion-searchbar>
+
+  <app-join-room-list-item *ngFor="let room of rooms" [room]="room"></app-join-room-list-item>
+
+</ion-content>
