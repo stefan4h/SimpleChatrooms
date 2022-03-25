@@ -22,3 +22,9 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
+
+<ion-content>
+
+  <app-chat *ngIf="room$ | async as room" [room]="room"></app-chat>
+
+</ion-content>

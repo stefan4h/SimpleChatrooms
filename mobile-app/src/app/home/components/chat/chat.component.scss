@@ -1,0 +1,34 @@
+main {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+
+  .input-wrapper {
+    display: flex;
+    flex-flow: row;
+    padding: 5px;
+
+    textarea {
+      width: 100%;
+      height: 35px;
+      margin-right: 5px;
+      outline: none;
+      box-shadow: none;
+      resize: none;
+      padding: 7px 7px 0 7px;
+      border-radius: 20px;
+
+      &:focus {
+        border-color: var(--ion-color-primary);
+      }
+
+      &:focus-visible {
+        border-color: var(--ion-color-primary) !important;
+      }
+    }
+
+    ion-button {
+      margin: 0;
+    }
+  }
+}
