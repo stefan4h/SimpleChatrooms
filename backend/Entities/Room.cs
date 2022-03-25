@@ -29,6 +29,8 @@ namespace simple_chatrooms_backend.Entities {
 
         public ICollection<User> Users { get; set; }
 
+        public ICollection<Message> Messages { get; set; }
+
         [JsonIgnore]
         [IgnoreDataMember]
         public List<RoomUser> RoomUsers { get; set; }

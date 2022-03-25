@@ -3,7 +3,7 @@
   <div style="flex: 1 auto"></div>
 
   <div class="input-wrapper">
-    <textarea id="message" [formControl]="messageFormControl" placeholder="Type your message"></textarea>
+    <textarea id="message-input" [formControl]="messageFormControl" placeholder="Type your message"></textarea>
 
     <ion-button shape="round" [appBtnLoading]="loading" [disabled]="messageFormControl.invalid" (click)="send()">
       <ion-icon slot="icon-only" name="send-outline"></ion-icon>

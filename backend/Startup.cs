@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using simple_chatrooms_backend.Entities;
 using simple_chatrooms_backend.Services;
+using simple_chatrooms_backend.Services.MessageRepository;
 using simple_chatrooms_backend.Services.RoomRepository;
 using simple_chatrooms_backend.Services.UserRepository;
 using System;
@@ -59,6 +60,7 @@ namespace simple_chatrooms_backend {
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository<User>, UserRepository>();
             services.AddScoped<IRoomRepository<Room>, RoomRepository>();
+            services.AddScoped<IMessageRepository<Message>, MessageRepository>();
 
             // source for authentication: https://medium.com/c-sharp-progarmming/jwt-authentication-in-asp-net-core-web-api-82895c29734c
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

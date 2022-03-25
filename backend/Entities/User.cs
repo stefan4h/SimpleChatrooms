@@ -32,6 +32,7 @@ namespace simple_chatrooms_backend.Entities {
         [MaxLength(50)]
         public string LastName { get; set; }
 
+        public ICollection<Message> Messages { get; set; }
 
         public string ProfilePicture { get; set; }
 
