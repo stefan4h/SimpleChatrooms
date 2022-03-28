@@ -10,7 +10,7 @@ import {MessageService} from "../../../services/message.service";
   selector: 'app-rooms',
   template: `
     <div *ngIf="messages$ | async as messages">
-      <app-room-list-item *ngFor="let room of rooms$|async" [room]="room"
+      <app-room-list-item *ngFor="let room of rooms$|async|orderChatroom:messages" [room]="room"
                           [routerLink]="['/rooms',room.id]" [messages]="messages.get(room.id)"></app-room-list-item>
     </div>`,
 })

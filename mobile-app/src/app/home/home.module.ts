@@ -16,6 +16,7 @@ import {RoomDetailsComponent} from "./components/rooms/room/room-details/room-de
 import {ChangeRoomPictureComponent} from "./components/rooms/room/room-details/change-room-picture/change-room-picture.component";
 import {EditRoomComponent} from "./components/rooms/room/room-details/edit-room/edit-room.component";
 import {ChatComponent} from "./components/chat/chat.component";
+import { OrderChatroomPipe } from './components/rooms/order-chatroom.pipe';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import {ChatComponent} from "./components/chat/chat.component";
     ChangeRoomPictureComponent,
     EditRoomComponent,
     ChatComponent,
+    OrderChatroomPipe,
   ]
 })
 export class HomePageModule {
