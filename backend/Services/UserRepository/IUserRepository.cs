@@ -13,5 +13,7 @@ namespace simple_chatrooms_backend.Services.UserRepository {
         bool HasRoom(Guid id, Guid roomId);
 
         public User GetOneWithRooms(Guid id);
+
+        public User GetOneByUsername(string username);
     }
 }

@@ -31,5 +31,9 @@ namespace simple_chatrooms_backend.Services.UserRepository {
         public bool HasRoom(Guid id, Guid roomId) {
             return GetOneWithRooms(id).Rooms.Contains(_context.Rooms.Find(roomId));
         }
+
+        public User GetOneByUsername(string username) {
+            return _context.Users.Where(u => u.Username == username).FirstOrDefault();
+        }
     }
 }

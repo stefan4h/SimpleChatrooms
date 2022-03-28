@@ -31,8 +31,23 @@ namespace simple_chatrooms_backend.Controllers {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        [HttpPatch]
+        public ActionResult GetAll(Guid userId, Guid roomId, [FromBody] MessageGetAllDto dto) {
+            Dictionary<Guid, IEnumerable<MessageDto>> returnDic = new Dictionary<Guid, IEnumerable<MessageDto>>();
+
+            foreach (KeyValuePair<Guid, Guid?> roomKV in dto.RoomsWithLastMessageReceived) {
+                if (!_roomRepository.Exists(roomKV.Key)) continue;
+                if (roomKV.Value == null || (roomKV.Value != null && !_messageRepository.Exists((Guid)roomKV.Value)))
+                    returnDic.Add(roomKV.Key, _mapper.Map<IEnumerable<MessageDto>>(_messageRepository.GetForRoom(roomKV.Key, null)));
+                else
+                    returnDic.Add(roomKV.Key, _mapper.Map<IEnumerable<MessageDto>>(_messageRepository.GetForRoom(roomKV.Key, roomKV.Value)));
+            }
+
+            return Ok(returnDic.ToArray());
+        }
+
         [HttpPost]
-        public ActionResult<MessageDto> Create(Guid userId,Guid roomId, MessageCreateDto dto) {
+        public ActionResult<MessageDto> Create(Guid userId, Guid roomId, MessageCreateDto dto) {
             if (!_userRepository.Exists(userId))
                 return NotFound();
 

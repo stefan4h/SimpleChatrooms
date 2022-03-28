@@ -46,6 +46,7 @@ namespace simple_chatrooms_backend {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "simple_chatrooms_backend", Version = "v1" });
             });
 
+
             services.AddCors(options => {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder => {
@@ -54,6 +55,7 @@ namespace simple_chatrooms_backend {
                                       builder.AllowAnyHeader();
                                   });
             });
+           
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
