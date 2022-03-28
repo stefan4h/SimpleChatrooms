@@ -3,6 +3,7 @@
   flex-flow: row;
   align-items: center;
   margin: 10px;
+  overflow: hidden;
 
   .picture {
     display: flex;
@@ -21,8 +22,19 @@
     font-size: xx-large;
   }
 
-  .title {
-    font-size: x-large;
-    white-space: nowrap;
+  .text-wrapper{
+    display: flex;
+    flex-flow: column;
+
+    .title {
+      font-size: x-large;
+      white-space: nowrap;
+      font-weight: bolder;
+    }
+
+    .last-message span{
+      white-space: nowrap;
+    }
   }
+
 }

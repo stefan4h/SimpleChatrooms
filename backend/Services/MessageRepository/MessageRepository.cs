@@ -13,7 +13,7 @@ namespace simple_chatrooms_backend.Services.MessageRepository {
             var messages = _context.Messages.Where(m => m.RoomId == roomId);
 
             if (lastMessagedRecievedId != null)
-                messages = messages.Where(m=>m.SendDate < GetOne((Guid)lastMessagedRecievedId).SendDate);
+                messages = messages.Where(m=>m.SendDate > GetOne((Guid)lastMessagedRecievedId).SendDate);
 
             return messages.Include("User").OrderByDescending(m => m.SendDate).ToList();
         }

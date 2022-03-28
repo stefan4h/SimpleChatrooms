@@ -15,6 +15,10 @@ export class MessageService {
 
   private _messagesForRooms: BehaviorSubject<Map<string, Message[]>>;
 
+  public get messages$(): Observable<Map<string, Message[]>> {
+    return this._messagesForRooms.asObservable();
+  }
+
   constructor(private http: HttpClient,
               private roomService: RoomService,
               private authService: AuthService) {
@@ -41,7 +45,7 @@ export class MessageService {
         () => {
           let body = {};
 
-          this._messagesForRooms.value.forEach((m, k) => body[k] = m.length > 0 ? m[m.length - 1].id : null);
+          this._messagesForRooms.value.forEach((m, k) => body[k] = m.length > 0 ? m[0].id : null);
 
           console.log(body)
 
@@ -53,7 +57,7 @@ export class MessageService {
               if (!roomMap.has(kv['key']))
                 roomMap.set(kv['key'], kv['value']);
               else
-                roomMap.set(kv['key'], roomMap.get(kv['key']).concat(kv['value']));
+                roomMap.set(kv['key'], kv['value'].concat(roomMap.get(kv['key'])));
             });
 
             this._messagesForRooms.next(roomMap);
