@@ -1,0 +1,21 @@
+<div class="wrapper">
+
+  <div class="profile-picture" *ngIf="!user.profilePicture">
+    <span>{{user.username[0].toUpperCase()}}</span>
+  </div>
+
+  <img class="profile-picture" *ngIf="user.profilePicture" [src]="environment.imageURL+user.profilePicture">
+
+  <div class="name-wrapper">
+
+    <div class="username">
+      {{user.username}}
+    </div>
+
+    <div class="name">
+      {{user.firstName}} {{user.lastName}}
+    </div>
+
+  </div>
+
+</div>

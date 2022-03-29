@@ -30,6 +30,10 @@
 
     <ion-button color="primary" expand="block" [routerLink]="['/rooms',room.id,'edit']">Edit Room</ion-button>
 
+    <h1>Members</h1>
+
+    <app-user-list-item *ngFor="let user of room.users" [user]="user"></app-user-list-item>
+
     <div style="flex: 1 auto"></div>
 
     <ion-button color="warning" expand="block" (click)="leave(room.id)">Leave Room</ion-button>

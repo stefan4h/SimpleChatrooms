@@ -1,0 +1,31 @@
+.wrapper{
+  display: flex;
+  flex-flow: row;
+  margin-bottom: 10px;
+
+  .profile-picture {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    min-width: 45px;
+    min-height: 45px;
+    max-width: 45px;
+    max-height: 45px;
+    background: lightgreen;
+    border: 1.5px solid black;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .name-wrapper{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+
+    .username{
+      font-weight: bolder;
+    }
+  }
+}

@@ -16,8 +16,9 @@ import {RoomDetailsComponent} from "./components/rooms/room/room-details/room-de
 import {ChangeRoomPictureComponent} from "./components/rooms/room/room-details/change-room-picture/change-room-picture.component";
 import {EditRoomComponent} from "./components/rooms/room/room-details/edit-room/edit-room.component";
 import {ChatComponent} from "./components/chat/chat.component";
-import { OrderChatroomPipe } from './components/rooms/order-chatroom.pipe';
+import {OrderChatroomPipe} from './components/rooms/order-chatroom.pipe';
 import {ChatBubbleComponent} from "./components/chat/chat-bubble/chat-bubble.component";
+import {UserListItemComponent} from "./components/rooms/room/room-details/user-list-item/user-list-item.component";
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import {ChatBubbleComponent} from "./components/chat/chat-bubble/chat-bubble.com
     ChatComponent,
     OrderChatroomPipe,
     ChatBubbleComponent,
+    UserListItemComponent
   ]
 })
 export class HomePageModule {
