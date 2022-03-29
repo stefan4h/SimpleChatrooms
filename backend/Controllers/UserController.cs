@@ -28,6 +28,11 @@ namespace simple_chatrooms_backend.Controllers {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        [HttpGet]
+        public ActionResult<IEnumerable<UserDto>> GetAll() {
+            return Ok(_mapper.Map<IEnumerable<UserDto>>(_userRepository.GetAll()));
+        }
+
         [HttpGet("{userId}")]
         public ActionResult<UserDto> GetOne(Guid userId) {
             return Ok(_mapper.Map<UserDto>(_userRepository.GetOne(userId)));
