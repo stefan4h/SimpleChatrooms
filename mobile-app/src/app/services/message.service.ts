@@ -39,7 +39,7 @@ export class MessageService {
   }
 
   getAll(): void {
-    interval(5000)
+    interval(500)
       .pipe(filter(() => this.authService.user != null))
       .subscribe(
         () => {

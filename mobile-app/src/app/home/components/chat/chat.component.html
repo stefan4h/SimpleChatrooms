@@ -1,13 +1,18 @@
-<main>
+<main #scrollContainer style="overflow: scroll; height: 100%;">
+
+  <app-chat-bubble *ngFor="let message of (messages$|async).get(room.id).reverse()"
+                   [message]="message"></app-chat-bubble>
 
   <div style="flex: 1 auto"></div>
 
-  <div class="input-wrapper">
-    <textarea id="message-input" [formControl]="messageFormControl" placeholder="Type your message"></textarea>
+  <div class="absolute-bottom">
+    <div class="input-wrapper">
+      <textarea id="message-input" [formControl]="messageFormControl" (keyup.enter)="send()" placeholder="Type your message"></textarea>
 
-    <ion-button shape="round" [appBtnLoading]="loading" [disabled]="messageFormControl.invalid" (click)="send()">
-      <ion-icon slot="icon-only" name="send-outline"></ion-icon>
-    </ion-button>
+      <ion-button shape="round" [appBtnLoading]="loading" [disabled]="messageFormControl.invalid" (click)="send()">
+        <ion-icon slot="icon-only" name="send-outline"></ion-icon>
+      </ion-button>
+    </div>
   </div>
 
 </main>
