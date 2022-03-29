@@ -9,6 +9,7 @@ namespace simple_chatrooms_backend.Models.MessageDtos {
         public Guid Id { get; set; }
         public string Text { get; set; }
         public DateTime SendDate { get; set; }
+        public Guid UserId { get; set; }
         public UserDto User { get; set; }
         public Guid RoomId { get; set; }
     }

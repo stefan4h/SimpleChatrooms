@@ -4,6 +4,7 @@ export interface Message {
   id: string;
   text: string;
   sendDate: Date;
-  user: User;
+  userId: string;
+  user?: User;
   roomId: string;
 }

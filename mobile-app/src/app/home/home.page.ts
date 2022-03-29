@@ -6,6 +6,7 @@ import {environment} from "../../environments/environment";
 import {MessageService} from "../services/message.service";
 import {RoomService} from "../services/room.service";
 import {Room} from "../models/room.model";
+import {UserService} from "../services/user.service";
 
 
 @Component({
@@ -19,13 +20,15 @@ export class HomePage implements OnInit {
   environment = environment;
 
   constructor(public authService: AuthService,
-              private roomService:RoomService,
-              private messageService:MessageService) {
+              private roomService: RoomService,
+              private userService: UserService,
+              private messageService: MessageService) {
+    this.authService.user$.subscribe(user => this.userService.getAll());
   }
 
   ngOnInit(): void {
     this.user$ = this.authService.user$;
-      this.messageService.getAll();
+    this.messageService.getAll();
   }
 
 }

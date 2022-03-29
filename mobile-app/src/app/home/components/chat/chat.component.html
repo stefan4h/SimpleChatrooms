@@ -1,13 +1,13 @@
 <main #scrollContainer style="overflow: scroll; height: 100%;">
 
   <app-chat-bubble *ngFor="let message of (messages$|async).get(room.id).reverse()"
-                   [message]="message"></app-chat-bubble>
+                   [message]="message" [user]="getMessageUser(message)"></app-chat-bubble>
 
   <div style="flex: 1 auto"></div>
 
   <div class="absolute-bottom">
     <div class="input-wrapper">
-      <textarea id="message-input" [formControl]="messageFormControl" (keyup.enter)="send()" placeholder="Type your message"></textarea>
+      <textarea id="message-input" [formControl]="messageFormControl" (keyup.enter)="$event.preventDefault();send()" placeholder="Type your message"></textarea>
 
       <ion-button shape="round" [appBtnLoading]="loading" [disabled]="messageFormControl.invalid" (click)="send()">
         <ion-icon slot="icon-only" name="send-outline"></ion-icon>

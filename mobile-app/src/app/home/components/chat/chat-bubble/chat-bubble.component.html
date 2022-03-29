@@ -1,3 +1,21 @@
-<p>
-  {{message.text}}
-</p>
+<div *ngIf="user" class="wrapper">
+
+  <div class="profile-picture" *ngIf="!user.profilePicture">
+    <span>{{user.username[0].toUpperCase()}}</span>
+  </div>
+
+  <img class="profile-picture" *ngIf="user.profilePicture" [src]="environment.imageURL+user.profilePicture">
+
+  <div class="message-wrapper" [class.own]="loggedInUser?.id == user?.id">
+
+    <div class="username">
+      {{user.username}}
+    </div>
+
+    <div class="message">
+      {{message.text}}
+    </div>
+
+  </div>
+
+</div>
