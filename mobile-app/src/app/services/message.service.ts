@@ -7,6 +7,7 @@ import {environment} from "../../environments/environment";
 import {RoomService} from "./room.service";
 import {Room} from "../models/room.model";
 import {filter, take} from "rxjs/operators";
+import {StorageService} from "./storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,21 @@ export class MessageService {
   private _messagesForRooms: BehaviorSubject<Map<string, Message[]>>;
 
   public get messages$(): Observable<Map<string, Message[]>> {
-    return this._messagesForRooms.asObservable();
+    return this._messagesForRooms?.asObservable();
   }
 
   constructor(private http: HttpClient,
               private roomService: RoomService,
+              private storageService: StorageService,
               private authService: AuthService) {
 
-    this._messagesForRooms = new BehaviorSubject<Map<string, Message[]>>(new Map<string, Message[]>());
+    this._messagesForRooms = new BehaviorSubject<Map<string, Message[]>>(new Map<string, Message[]>())
+
+    this.storageService.get('messages')
+      .then((messages: Map<string, Message[]>) => {
+        console.log(messages)
+        this._messagesForRooms.next(messages);
+      });
 
     roomService.rooms$
       .subscribe((rooms: Room[]) => {
@@ -61,6 +69,7 @@ export class MessageService {
             });
 
             this._messagesForRooms.next(roomMap);
+            this.storageService.set('messages', roomMap);
           })
         }
       );

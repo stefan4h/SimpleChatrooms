@@ -21,6 +21,6 @@ export class StorageService {
   }
 
   public async get(key: string) {
-    return await this._storage?.get('user');
+    return await this._storage?.get(key);
   }
 }
