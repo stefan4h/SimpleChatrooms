@@ -37,10 +37,12 @@ export class MessageService {
       .subscribe((rooms: Room[]) => {
         let roomMap: Map<string, Message[]> = this._messagesForRooms.value;
 
-        rooms.forEach(room => {
-          if (roomMap.has(room.id)) return;
-          roomMap.set(room.id, []);
-        });
+        if (rooms)
+          rooms.forEach(room => {
+            if (roomMap?.has(room.id)) return;
+            if (roomMap)
+              roomMap.set(room.id, []);
+          });
 
         this._messagesForRooms.next(roomMap);
       });
@@ -52,8 +54,8 @@ export class MessageService {
       .subscribe(
         () => {
           let body = {};
-
-          this._messagesForRooms.value.forEach((m, k) => body[k] = m.length > 0 ? m[0].id : null);
+          if (this._messagesForRooms.value)
+            this._messagesForRooms.value.forEach((m, k) => body[k] = m.length > 0 ? m[0].id : null);
 
           console.log(body)
 
@@ -62,9 +64,9 @@ export class MessageService {
             let roomMap = this._messagesForRooms.value;
 
             rooms.forEach(kv => {
-              if (!roomMap.has(kv['key']))
+              if (roomMap && !roomMap.has(kv['key']))
                 roomMap.set(kv['key'], kv['value']);
-              else
+              else if (roomMap)
                 roomMap.set(kv['key'], kv['value'].concat(roomMap.get(kv['key'])));
             });
 
