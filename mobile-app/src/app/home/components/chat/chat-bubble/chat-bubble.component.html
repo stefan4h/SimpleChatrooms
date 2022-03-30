@@ -12,8 +12,7 @@
       {{user.username}}
     </div>
 
-    <div class="message">
-      {{message.text}}
+    <div class="message" [innerHTML]="message.text">
     </div>
 
   </div>

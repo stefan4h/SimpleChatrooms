@@ -23,7 +23,7 @@ export class HomePage implements OnInit {
               private roomService: RoomService,
               private userService: UserService,
               private messageService: MessageService) {
-    this.authService.user$.subscribe(user => this.userService.getAll());
+    this.authService.user$.subscribe(user => user ? this.userService.getAll() : null);
   }
 
   ngOnInit(): void {

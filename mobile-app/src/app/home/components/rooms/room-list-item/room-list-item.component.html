@@ -12,8 +12,8 @@
     </div>
 
     <div class="last-message">
-    <span *ngIf="messages?.length > 0">
-      <strong>{{messages[0].user.username}}:</strong> {{messages[0].text}}
+    <span *ngIf="messages?.length > 0"
+          [innerHTML]="'<strong>'+messages[0].user.username+':</strong> '+messages[0].text">
     </span>
     </div>
 

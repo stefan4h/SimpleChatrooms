@@ -5,6 +5,10 @@
       <ion-back-button defaultHref="auth"></ion-back-button>
     </ion-buttons>
 
+    <ion-buttons slot="end">
+      <ion-icon slot="icon-only" name="location" (click)="shareLocation()"></ion-icon>
+    </ion-buttons>
+
     <ion-title>
 
       <div class="title-wrapper" *ngIf="room$ | async as room" routerLink="details">
