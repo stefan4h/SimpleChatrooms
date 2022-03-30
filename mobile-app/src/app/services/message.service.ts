@@ -27,11 +27,11 @@ export class MessageService {
 
     this._messagesForRooms = new BehaviorSubject<Map<string, Message[]>>(new Map<string, Message[]>())
 
-    this.storageService.get('messages')
-      .then((messages: Map<string, Message[]>) => {
-        console.log(messages)
-        this._messagesForRooms.next(messages);
-      });
+    // this.storageService.get('messages')
+    //   .then((messages: Map<string, Message[]>) => {
+    //     console.log(messages)
+    //     this._messagesForRooms.next(messages);
+    //   });
 
     roomService.rooms$
       .subscribe((rooms: Room[]) => {

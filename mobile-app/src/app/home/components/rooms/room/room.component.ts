@@ -42,7 +42,7 @@ export class RoomComponent implements OnInit {
         handler: async () => {
           const coordinates = await Geolocation.getCurrentPosition();
           this.messageService.create(
-            this.room.id, `<a href="https://www.google.at/maps/@${coordinates.coords.latitude},${coordinates.coords.longitude}" target="_blank">My Location</a>`
+            this.room.id, `<a href="https://www.google.com/maps/@?api=1&map_action=map&center=${coordinates.coords.latitude}%${coordinates.coords.longitude}" target="_blank">My Location</a>`
           ).subscribe();
         }
       }]
