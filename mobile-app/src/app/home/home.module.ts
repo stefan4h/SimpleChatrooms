@@ -20,7 +20,9 @@ import {OrderChatroomPipe} from './components/rooms/order-chatroom.pipe';
 import {ChatBubbleComponent} from "./components/chat/chat-bubble/chat-bubble.component";
 import {UserListItemComponent} from "./components/rooms/room/room-details/user-list-item/user-list-item.component";
 
-
+/**
+ * Module for the home page, declares all imports and resources needed
+ */
 @NgModule({
   imports: [
     CommonModule,

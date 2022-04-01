@@ -9,6 +9,9 @@ import { JoinChatroomPageRoutingModule } from './join-chatroom-routing.module';
 import { JoinChatroomPage } from './join-chatroom.page';
 import {JoinRoomListItemComponent} from "./components/join-room-list-item/join-room-list-item.component";
 
+/**
+ * Module declares all the resources needed for the join chatroom functionality
+ */
 @NgModule({
   imports: [
     CommonModule,

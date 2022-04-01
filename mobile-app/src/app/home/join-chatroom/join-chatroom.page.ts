@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {RoomService} from "../../services/room.service";
 import {Room} from "../../models/room.model";
 
+/**
+ * JoinChatroomPage shows search bar and list of found rooms
+ */
 @Component({
   selector: 'app-join-chatroom',
   templateUrl: './join-chatroom.page.html',
@@ -17,6 +20,10 @@ export class JoinChatroomPage implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Searches for a chatroom
+   * @param e
+   */
   search(e: CustomEvent) {
     const q: string = e.detail.value;
     if (q)

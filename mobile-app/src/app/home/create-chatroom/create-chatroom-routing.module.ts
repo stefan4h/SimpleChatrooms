@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CreateChatroomPage } from './create-chatroom.page';
 
+/**
+ * Declares routes for CreateChatroomPageModule
+ */
 const routes: Routes = [
   {
     path: '',

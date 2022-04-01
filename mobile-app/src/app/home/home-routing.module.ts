@@ -6,6 +6,9 @@ import {RoomComponent} from "./components/rooms/room/room.component";
 import {RoomDetailsComponent} from "./components/rooms/room/room-details/room-details.component";
 import {EditRoomComponent} from "./components/rooms/room/room-details/edit-room/edit-room.component";
 
+/**
+ * Declares the routes of the home module
+ */
 const routes: Routes = [
   {path: '', component: HomePage},
   {

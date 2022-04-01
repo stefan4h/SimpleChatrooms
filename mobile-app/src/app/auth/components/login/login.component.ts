@@ -4,6 +4,9 @@ import {finalize} from "rxjs/operators";
 import {AuthService} from "../../../services/auth/auth.service";
 import {ToastService} from "../../../services/toast.service";
 
+/**
+ * Login components displays the login form and button
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,6 +22,9 @@ export class LoginComponent implements OnInit {
               private toastService:ToastService) {
   }
 
+  /**
+   * Initializes the login form
+   */
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -26,7 +32,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  register() {
+  /**
+   * sends the login request to the server
+   */
+  login() {
     this.loading = true;
 
     this.authService.login(
@@ -39,10 +48,16 @@ export class LoginComponent implements OnInit {
       );
   }
 
+  /**
+   * Getter for username
+   */
   get username(): AbstractControl {
     return this.loginForm.get('username');
   }
 
+  /**
+   * Getter for password
+   */
   get password(): AbstractControl {
     return this.loginForm.get('password');
   }

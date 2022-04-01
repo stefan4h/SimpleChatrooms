@@ -4,7 +4,6 @@ import {ToastService} from "../../services/toast.service";
 import {RoomService} from "../../services/room.service";
 import {Room} from "../../models/room.model";
 import {finalize} from "rxjs/operators";
-import {error} from "protractor";
 import {Router} from "@angular/router";
 
 @Component({

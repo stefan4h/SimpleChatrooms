@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth/auth.service";
-import {User} from "../../../models/user.model";
 import {Router} from "@angular/router";
 import {finalize} from "rxjs/operators";
 import {ToastService} from "../../../services/toast.service";
 
+/**
+ * The register component shows the register form and button
+ */
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -22,6 +24,9 @@ export class RegisterComponent implements OnInit {
               private router: Router) {
   }
 
+  /**
+   * initializes the registerForm
+   */
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       firstname: ['', Validators.required],
@@ -31,6 +36,9 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  /**
+   * sends the register request to the server
+   */
   register() {
     this.loading = true;
 
@@ -46,18 +54,30 @@ export class RegisterComponent implements OnInit {
       );
   }
 
+  /**
+   * Getter for firstname
+   */
   get firstname(): AbstractControl {
     return this.registerForm.get('firstname');
   }
 
+  /**
+   * Getter for lastname
+   */
   get lastname(): AbstractControl {
     return this.registerForm.get('lastname');
   }
 
+  /**
+   * Getter for username
+   */
   get username(): AbstractControl {
     return this.registerForm.get('username');
   }
 
+  /**
+   * Getter for password
+   */
   get password(): AbstractControl {
     return this.registerForm.get('password');
   }

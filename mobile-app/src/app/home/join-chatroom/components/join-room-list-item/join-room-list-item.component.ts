@@ -6,6 +6,9 @@ import {ToastService} from "../../../../services/toast.service";
 import {finalize} from "rxjs/operators";
 import {Router} from "@angular/router";
 
+/**
+ * The JoinRoomListItem is the list item in the the room list
+ */
 @Component({
   selector: 'app-join-room-list-item',
   templateUrl: './join-room-list-item.component.html',
@@ -25,6 +28,9 @@ export class JoinRoomListItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Sends the user join request to the server
+   */
   join() {
     this.loading = true;
 
