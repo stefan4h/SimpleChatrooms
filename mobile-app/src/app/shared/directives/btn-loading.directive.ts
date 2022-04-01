@@ -11,6 +11,10 @@ export class BtnLoadingDirective {
   constructor(private el: ElementRef) {
   }
 
+  /**
+   * Will change the content of a button to a loading symbol while the loading input is true
+   * @param changes
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && this.initialInnerHTML) {
 

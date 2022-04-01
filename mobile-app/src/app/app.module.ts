@@ -9,8 +9,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {IonicStorageModule} from "@ionic/storage-angular";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptorService} from './services/auth/auth-interceptor.service';
-import { BtnLoadingDirective } from './shared/directives/btn-loading.directive';
 
+// entry point of the project
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],

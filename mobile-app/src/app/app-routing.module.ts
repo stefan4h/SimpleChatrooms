@@ -3,6 +3,8 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from "./shared/guards/auth.guard";
 import {LoginGuard} from "./shared/guards/login.guard";
 
+// routes to the different modules of the applications
+// the auth guards prevent users that are not authenticated to see the whole application
 const routes: Routes = [
   {
     path: '',

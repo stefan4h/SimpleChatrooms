@@ -1,15 +1,12 @@
 import {Injectable} from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   CanActivateChild,
   Router,
   RouterStateSnapshot,
   UrlTree
 } from '@angular/router';
 import {Observable} from 'rxjs';
-import {AuthService} from "../../services/auth/auth.service";
-import {map, take} from "rxjs/operators";
 import {User} from "../../models/user.model";
 import {StorageService} from "../../services/storage.service";
 
@@ -22,11 +19,16 @@ export class LoginGuard implements CanActivateChild {
               private router: Router) {
   }
 
+  /**
+   * redirects users that are already authenticated to the home page
+   * @param childRoute
+   * @param state
+   */
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.storageService.get('user').then((user: User) => {
-        if (!user)
+        if (!user) // if user does not exists (no logged in user)
           return true;
-        this.router.navigate(['']);
+        this.router.navigate(['']); // if user exists redirect to home page
         return false;
       }
     )

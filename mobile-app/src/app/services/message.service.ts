@@ -16,6 +16,9 @@ export class MessageService {
 
   private _messagesForRooms: BehaviorSubject<Map<string, Message[]>>;
 
+  /**
+   * return the messages of the behaviour subject as observable
+   */
   public get messages$(): Observable<Map<string, Message[]>> {
     return this._messagesForRooms?.asObservable();
   }
@@ -24,7 +27,7 @@ export class MessageService {
               private roomService: RoomService,
               private storageService: StorageService,
               private authService: AuthService) {
-
+    // instantiate the initial messages
     this._messagesForRooms = new BehaviorSubject<Map<string, Message[]>>(new Map<string, Message[]>())
 
     // this.storageService.get('messages')
@@ -48,6 +51,9 @@ export class MessageService {
       });
   }
 
+  /**
+   * Fetch all new messages from the server and do that every 500 milliseconds
+   */
   getAll(): void {
     interval(500)
       .pipe(filter(() => this.authService.user != null))
@@ -57,12 +63,11 @@ export class MessageService {
           if (this._messagesForRooms.value)
             this._messagesForRooms.value.forEach((m, k) => body[k] = m.length > 0 ? m[0].id : null);
 
-          console.log(body)
-
           this.http.patch<any>(environment.apiURL + `users/${this.authService.user.id}/rooms/08da05e4-99d3-4bd1-8ac9-0eccb7d3d2dd/messages`,
             {roomsWithLastMessageReceived: body}).subscribe(rooms => {
             let roomMap = this._messagesForRooms.value;
 
+            // add new messages to the rooms
             rooms.forEach(kv => {
               if (roomMap && !roomMap.has(kv['key']))
                 roomMap.set(kv['key'], kv['value']);
@@ -77,6 +82,11 @@ export class MessageService {
       );
   }
 
+  /**
+   * Create a new message and send to the server
+   * @param roomId
+   * @param text
+   */
   create(roomId: string, text: string): Observable<Message> {
     return this.http.post<Message>(environment.apiURL + `users/${this.authService.user.id}/rooms/${roomId}/messages`, {text});
   }

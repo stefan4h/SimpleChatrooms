@@ -7,10 +7,9 @@ import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 })
 export class PhotoService {
 
-
-  constructor() {
-  }
-
+  /**
+   * Take a foto and return the blob in a promise
+   */
   public async getPictureFromCamera() {
     // Take a photo
     const capturedPhoto = await Camera.getPhoto({
@@ -22,9 +21,12 @@ export class PhotoService {
     });
 
 
-    return this.b64toBlob(capturedPhoto.base64String, 'image/png');
+    return PhotoService.b64toBlob(capturedPhoto.base64String);
   }
 
+  /**
+   * Get picture from galerie and return the blob in a promise
+   */
   public async getPictureFromGalerie() {
     // Take a photo
     const capturedPhoto = await Camera.getPhoto({
@@ -36,25 +38,30 @@ export class PhotoService {
     });
 
 
-    return this.b64toBlob(capturedPhoto.base64String, 'image/png');
+    return PhotoService.b64toBlob(capturedPhoto.base64String);
   }
 
-  private b64toBlob(b64Data, contentType = '', sliceSize = 512): Blob {
-    const byteCharacters = atob(b64Data);
-    const byteArrays = [];
+  /**
+   * Generate a blob from a picture data
+   * @param data
+   * @private
+   */
+  private static b64toBlob(data): Blob {
+    let chars = atob(data);
+    let bytes = [];
 
-    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      const slice = byteCharacters.slice(offset, offset + sliceSize);
+    for (let i = 0; i < chars.length; i += 512) {
+      let size = chars.slice(i, i + 512);
 
-      const byteNumbers = new Array(slice.length);
-      for (let i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
+      const count = new Array(size.length);
+      for (let j = 0; j < size.length; j++)
+        count[j] = size.charCodeAt(j);
 
-      const byteArray = new Uint8Array(byteNumbers);
-      byteArrays.push(byteArray);
+
+      const byteArray = new Uint8Array(count);
+      bytes.push(byteArray);
     }
 
-    return new Blob(byteArrays, {type: contentType});
+    return new Blob(bytes, {type: 'image/png'});
   }
 }
