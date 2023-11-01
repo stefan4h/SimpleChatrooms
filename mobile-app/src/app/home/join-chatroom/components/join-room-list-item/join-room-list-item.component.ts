@@ -5,6 +5,7 @@ import {RoomService} from "../../../../services/room.service";
 import {ToastService} from "../../../../services/toast.service";
 import {finalize} from "rxjs/operators";
 import {Router} from "@angular/router";
+import {SignalrService} from "../../../../services/signalr.service";
 
 /**
  * The JoinRoomListItem is the list item in the the room list
@@ -22,7 +23,8 @@ export class JoinRoomListItemComponent implements OnInit {
 
   constructor(private roomService: RoomService,
               private toastService: ToastService,
-              private router: Router) {
+              private router: Router,
+              private signalRService: SignalrService) {
   }
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class JoinRoomListItemComponent implements OnInit {
         this.roomService.getAll();
         this.toastService.success('You joined the room!');
         this.router.navigate(['']);
+        this.signalRService.restartConnection();
       }, error => this.toastService.error('An error occurred while joining the room'));
   }
 }

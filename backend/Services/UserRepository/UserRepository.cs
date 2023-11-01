@@ -33,7 +33,7 @@ namespace simple_chatrooms_backend.Services.UserRepository {
         }
 
         public User GetOneByUsername(string username) {
-            return _context.Users.Where(u => u.Username == username).FirstOrDefault();
+            return _context.Users.Include(u => u.Rooms).Where(u => u.Username == username).FirstOrDefault();
         }
     }
 }

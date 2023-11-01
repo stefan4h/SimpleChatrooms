@@ -55,31 +55,36 @@ export class MessageService {
    * Fetch all new messages from the server and do that every 500 milliseconds
    */
   getAll(): void {
-    interval(500)
-      .pipe(filter(() => this.authService.user != null))
-      .subscribe(
-        () => {
-          let body = {};
-          if (this._messagesForRooms.value)
-            this._messagesForRooms.value.forEach((m, k) => body[k] = m.length > 0 ? m[0].id : null);
+    if(this.authService.user == null) return;
 
-          this.http.patch<any>(environment.apiURL + `users/${this.authService.user.id}/rooms/08da05e4-99d3-4bd1-8ac9-0eccb7d3d2dd/messages`,
-            {roomsWithLastMessageReceived: body}).subscribe(rooms => {
-            let roomMap = this._messagesForRooms.value;
+    let body = {};
+    if (this._messagesForRooms.value)
+      this._messagesForRooms.value.forEach((m, k) => body[k] = m.length > 0 ? m[0].id : null);
 
-            // add new messages to the rooms
-            rooms.forEach(kv => {
-              if (roomMap && !roomMap.has(kv['key']))
-                roomMap.set(kv['key'], kv['value']);
-              else if (roomMap)
-                roomMap.set(kv['key'], kv['value'].concat(roomMap.get(kv['key'])));
-            });
+    this.http.patch<any>(environment.apiURL + `users/${this.authService.user.id}/rooms/08da05e4-99d3-4bd1-8ac9-0eccb7d3d2dd/messages`,
+      {roomsWithLastMessageReceived: body}).subscribe(rooms => {
+      let roomMap = this._messagesForRooms.value;
 
-            this._messagesForRooms.next(roomMap);
-            this.storageService.set('messages', roomMap);
-          })
-        }
-      );
+      // add new messages to the rooms
+      rooms.forEach(kv => {
+        if (roomMap && !roomMap.has(kv['key']))
+          roomMap.set(kv['key'], kv['value']);
+        else if (roomMap)
+          roomMap.set(kv['key'], kv['value'].concat(roomMap.get(kv['key'])));
+      });
+
+      this._messagesForRooms.next(roomMap);
+      this.storageService.set('messages', roomMap);
+    })
+  }
+
+  addMessageToRoom(message: Message): void {
+    let roomMap = this._messagesForRooms.value;
+
+    let messages : Message[] = [message]
+    roomMap.set(message.roomId,messages.concat(roomMap.get(message.roomId)));
+    this._messagesForRooms.next(roomMap);
+    this.storageService.set('messages', roomMap);
   }
 
   /**

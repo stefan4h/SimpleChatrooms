@@ -5,6 +5,7 @@ import {RoomService} from "../../services/room.service";
 import {Room} from "../../models/room.model";
 import {finalize} from "rxjs/operators";
 import {Router} from "@angular/router";
+import {SignalrService} from "../../services/signalr.service";
 
 @Component({
   selector: 'app-create-chatroom',
@@ -20,7 +21,8 @@ export class CreateChatroomPage implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private toastService: ToastService,
               private router: Router,
-              private roomService: RoomService) {
+              private roomService: RoomService,
+              private signalRService:SignalrService) {
   }
 
   ngOnInit() {
@@ -41,6 +43,7 @@ export class CreateChatroomPage implements OnInit {
           this.toastService.success('Chatroom created successfully!');
           this.roomService.getAll();
           this.router.navigate(['']);
+          this.signalRService.restartConnection();
         },
         error => this.toastService.error('Chatroom could not be created'))
   }

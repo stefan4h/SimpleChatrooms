@@ -6,6 +6,7 @@ import {environment} from "../../environments/environment";
 import {MessageService} from "../services/message.service";
 import {RoomService} from "../services/room.service";
 import {UserService} from "../services/user.service";
+import {SignalrService} from "../services/signalr.service";
 
 /**
  * Home page component, entry point of the home page
@@ -23,7 +24,8 @@ export class HomePage implements OnInit {
   constructor(public authService: AuthService,
               private roomService: RoomService,
               private userService: UserService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private signalRService: SignalrService) {
     this.authService.user$.subscribe(user => user ? this.userService.getAll() : null);
   }
 
@@ -32,7 +34,18 @@ export class HomePage implements OnInit {
    */
   ngOnInit(): void {
     this.user$ = this.authService.user$;
-    this.messageService.getAll();
+
+    setTimeout(() => {
+      this.messageService.getAll();
+    }, 500);
+
+    setTimeout(() => {
+      this.signalRService.startConnection();
+    }, 1000);
+
+    setTimeout(() => {
+      this.messageService.getAll();
+    }, 1500);
   }
 
 }

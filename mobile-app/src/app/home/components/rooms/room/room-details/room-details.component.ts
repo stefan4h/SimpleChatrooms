@@ -6,6 +6,7 @@ import {AuthService} from "../../../../../services/auth/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../../../../environments/environment";
 import {ToastService} from "../../../../../services/toast.service";
+import {SignalrService} from "../../../../../services/signalr.service";
 
 @Component({
   selector: 'app-room-details',
@@ -21,7 +22,8 @@ export class RoomDetailsComponent implements OnInit {
               private authService: AuthService,
               private toastService: ToastService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private signalRService: SignalrService) {
   }
 
   ngOnInit() {
@@ -33,6 +35,7 @@ export class RoomDetailsComponent implements OnInit {
       this.toastService.success('You left the room');
       this.roomService.getAll();
       this.router.navigate(['']);
+      this.signalRService.restartConnection();
     }, error => this.toastService.error('Leaving the room did not work'));
   }
 

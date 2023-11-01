@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using simple_chatrooms_backend.Entities;
+using simple_chatrooms_backend.Hubs;
 using simple_chatrooms_backend.Services;
 using simple_chatrooms_backend.Services.MessageRepository;
 using simple_chatrooms_backend.Services.RoomRepository;
@@ -50,9 +51,10 @@ namespace simple_chatrooms_backend {
             services.AddCors(options => {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder => {
-                                      builder.AllowAnyOrigin();
+                                      builder.WithOrigins("http://localhost:8100", "http://localhost:8300");
                                       builder.AllowAnyMethod();
                                       builder.AllowAnyHeader();
+                                      builder.AllowCredentials();
                                   });
             });
            
@@ -73,12 +75,27 @@ namespace simple_chatrooms_backend {
                         ValidateIssuer = false,
                         ValidateAudience = false,
                     };
+
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             // connect to MySQL Database Server
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContextPool<SimpleChatroomsContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
-
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,6 +121,7 @@ namespace simple_chatrooms_backend {
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
+                endpoints.MapHub<MessageHub>("/messagehub");
             });
         }
     }

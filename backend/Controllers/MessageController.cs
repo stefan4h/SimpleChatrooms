@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using simple_chatrooms_backend.Entities;
+using simple_chatrooms_backend.Hubs;
 using simple_chatrooms_backend.Models.MessageDtos;
 using simple_chatrooms_backend.Services.MessageRepository;
 using simple_chatrooms_backend.Services.RoomRepository;
@@ -19,15 +21,18 @@ namespace simple_chatrooms_backend.Controllers {
         private readonly IRoomRepository<Room> _roomRepository;
         private readonly IUserRepository<User> _userRepository;
         private readonly IMessageRepository<Message> _messageRepository;
+        private readonly IHubContext<MessageHub> _hub;
         private readonly IMapper _mapper;
 
         public MessageController(IRoomRepository<Room> roomRepository,
                                     IUserRepository<User> userRepository,
                                     IMessageRepository<Message> messageRepository,
+                                    IHubContext<MessageHub> hub,
                                     IMapper mapper) {
             _roomRepository = roomRepository ?? throw new ArgumentNullException(nameof(roomRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _messageRepository = messageRepository ?? throw new ArgumentNullException(nameof(messageRepository));
+            _hub = hub ?? throw new ArgumentNullException(nameof(hub));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
@@ -63,6 +68,7 @@ namespace simple_chatrooms_backend.Controllers {
 
             _messageRepository.Add(message);
             _messageRepository.Save();
+            _hub.Clients.Group(message.Room.Id.ToString()).SendAsync("messages", _mapper.Map<MessageDto>(message));
 
             return Ok(_mapper.Map<MessageDto>(message));
         }

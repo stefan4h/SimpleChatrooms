@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using simple_chatrooms_backend.Entities;
+using simple_chatrooms_backend.Hubs;
 using simple_chatrooms_backend.Models.RoomDtos;
 using simple_chatrooms_backend.Services.RoomRepository;
 using simple_chatrooms_backend.Services.UserRepository;
