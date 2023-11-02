@@ -15,10 +15,10 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using simple_chatrooms_backend.Entities;
 using simple_chatrooms_backend.Hubs;
+using simple_chatrooms_backend.Repositories.MessageRepository;
+using simple_chatrooms_backend.Repositories.RoomRepository;
+using simple_chatrooms_backend.Repositories.UserRepository;
 using simple_chatrooms_backend.Services;
-using simple_chatrooms_backend.Services.MessageRepository;
-using simple_chatrooms_backend.Services.RoomRepository;
-using simple_chatrooms_backend.Services.UserRepository;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +26,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace simple_chatrooms_backend {
+namespace simple_chatrooms_backend
+{
     public class Startup {
         public Startup(IConfiguration configuration) {
             Configuration = configuration;

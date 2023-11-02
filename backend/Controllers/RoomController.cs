@@ -7,15 +7,16 @@ using Microsoft.IdentityModel.Tokens;
 using simple_chatrooms_backend.Entities;
 using simple_chatrooms_backend.Hubs;
 using simple_chatrooms_backend.Models.RoomDtos;
-using simple_chatrooms_backend.Services.RoomRepository;
-using simple_chatrooms_backend.Services.UserRepository;
+using simple_chatrooms_backend.Repositories.RoomRepository;
+using simple_chatrooms_backend.Repositories.UserRepository;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace simple_chatrooms_backend.Controllers {
+namespace simple_chatrooms_backend.Controllers
+{
 
     [Authorize]
     [Route("api/users/{userId}/rooms")]

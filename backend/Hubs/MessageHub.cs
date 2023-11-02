@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.SignalR;
 using simple_chatrooms_backend.Entities;
-using simple_chatrooms_backend.Services.UserRepository;
+using simple_chatrooms_backend.Repositories.UserRepository;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;

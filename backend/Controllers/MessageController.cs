@@ -5,15 +5,16 @@ using Microsoft.AspNetCore.SignalR;
 using simple_chatrooms_backend.Entities;
 using simple_chatrooms_backend.Hubs;
 using simple_chatrooms_backend.Models.MessageDtos;
-using simple_chatrooms_backend.Services.MessageRepository;
-using simple_chatrooms_backend.Services.RoomRepository;
-using simple_chatrooms_backend.Services.UserRepository;
+using simple_chatrooms_backend.Repositories.MessageRepository;
+using simple_chatrooms_backend.Repositories.RoomRepository;
+using simple_chatrooms_backend.Repositories.UserRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace simple_chatrooms_backend.Controllers {
+namespace simple_chatrooms_backend.Controllers
+{
     [Route("api/users/{userId}/rooms/{roomId}/messages")]
     [ApiController]
     public class MessageController : ControllerBase {

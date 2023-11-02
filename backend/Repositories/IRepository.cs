@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace simple_chatrooms_backend.Services {
-    public interface IRepository<T> where T : class {
+namespace simple_chatrooms_backend.Repositories
+{
+    public interface IRepository<T> where T : class
+    {
         T GetOne(Guid id);
         IEnumerable<T> GetAll();
         void Add(T entity);
